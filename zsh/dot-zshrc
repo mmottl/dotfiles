@@ -241,13 +241,13 @@ if (( $+commands[lazygit] )); then
 fi
 
 lg() {
-    export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
+    export LAZYGIT_NEW_DIR_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/lazygit_newdir"
 
     lazygit "$@"
 
-    if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
-      cd "$(< $LAZYGIT_NEW_DIR_FILE)"
-      rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
+    if [ -f "$LAZYGIT_NEW_DIR_FILE" ]; then
+        cd "$(< "$LAZYGIT_NEW_DIR_FILE")" || return
+        rm -f "$LAZYGIT_NEW_DIR_FILE" > /dev/null
     fi
 }
 
