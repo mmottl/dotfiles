@@ -1,0 +1,7 @@
+set bell-style none
+set convert-meta on
+set editing-mode vi
+set keymap vi-insert
+set show-all-if-ambiguous on
+
+"\C-l": clear-screen

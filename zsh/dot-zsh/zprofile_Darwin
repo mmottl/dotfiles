@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+#######################################################################
+#                           ZPROFILE DARWIN                           #
+#######################################################################
+
+##########################
+#  Restore .zshenv PATH  #
+##########################
+
+# Necessary on macOS due to Apple path_helper path manipulation
+if [[ $PATH != "$ORIGINAL_PATH" ]]; then
+  PATH=$ORIGINAL_PATH:$PATH
+fi

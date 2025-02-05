@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+
+#######################################################################
+#                            ZSHRC DARWIN                             #
+#######################################################################
+
+##############
+#  Homebrew  #
+##############
+
+if (( $+commands[brew] )); then
+  BREW_PREFIX=$(brew --prefix)
+  FPATH="$BREW_PREFIX/share/zsh/site-functions:$FPATH"
+  FPATH="$BREW_PREFIX/share/zsh-completions:$FPATH"
+
+  ##########
+  #  LLVM  #
+  ##########
+
+  llvm_bin="$BREW_PREFIX/opt/llvm/bin"
+  if [[ -d "$llvm_bin" ]]; then
+    export PATH="$llvm_bin:$PATH"
+  fi
+  unset llvm_bin
+fi
+
+###############
+#  Oh-My-Zsh  #
+###############
+
+plugins+=(
+  1password
+  brew
+)
