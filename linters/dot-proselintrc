@@ -1,0 +1,6 @@
+{
+  "checks": {
+    "typography.symbols": false
+  },
+  "max_line_length": 80
+}
