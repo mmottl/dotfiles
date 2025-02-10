@@ -1,0 +1,415 @@
+#!/usr/bin/env zsh
+
+#######################################################################
+#                                ZSHRC                                #
+#######################################################################
+
+###############################
+#  Platform-specific Sources  #
+###############################
+
+if [[ -f "$__zsh_config_dir/zshrc_$ZSH_UNAME" ]]; then
+  source "$__zsh_config_dir/zshrc_$ZSH_UNAME"
+fi
+
+###################
+#  Powerlevel10k  #
+###################
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "$__zsh_cache_dir/p10k-instant-prompt-${(%):-%n}.zsh" ]]
+then
+  source "$__zsh_cache_dir/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f "$__zsh_config_dir/p10k.zsh" ]] || source "$__zsh_config_dir/p10k.zsh"
+
+typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
+
+#################################
+#  Location of zcompdump Files  #
+#################################
+
+export ZSH_COMPDUMP="$__zsh_cache_dir/.zcompdump-$HOST-${ZSH_VERSION}"
+
+###############
+#  Autoloads  #
+###############
+
+autoload -Uz zcalc
+autoload -Uz zmv
+
+######################
+#  History Settings  #
+######################
+
+export HISTSIZE=100000
+
+export HISTFILE=$__zsh_cache_dir/history
+mkdir -p "$(dirname "$HISTFILE")"
+
+setopt APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt INC_APPEND_HISTORY
+
+unsetopt SHARE_HISTORY
+
+###############################
+#  Source Oh-My-Zsh Settings  #
+###############################
+
+if [[ -f "$__zsh_config_dir/zshrc_omz" ]]; then
+  source "$__zsh_config_dir/zshrc_omz"
+fi
+
+#############################
+#  Shell-specific Settings  #
+#############################
+
+bindkey -v  # This sets vi mode in zsh
+
+umask 022
+setopt EXTENDED_GLOB
+setopt NOTIFY
+setopt NO_CLOBBER
+
+#########
+#  GPG  #
+#########
+
+GPG_TTY=$(tty)
+if [[ -n "$GPG_TTY" ]]; then
+    export GPG_TTY
+else
+    echo "No TTY available for GPG_TTY" >&2
+fi
+
+########################################
+#  Directory Listing and Colorization  #
+########################################
+
+MY_LS_CMD="ls --sort=v"
+ORIG_TREE_CMD="tree -v"
+MY_TREE_CMD_DEEP="$ORIG_TREE_CMD --filelimit 100 -p -u --si -D"
+MY_TREE_CMD="$MY_TREE_CMD_DEEP -L 4"
+
+alias ls="$MY_LS_CMD"
+alias tree="$ORIG_TREE_CMD"
+
+ls_color_args="--color"
+tree_color_args='-C'
+LS_GROUP_DIRS_FIRST="--group-directories-first"
+LS_GROUP_DIRS_LAST=""
+
+if (( $+commands[lsd] )); then
+  MY_LS_CMD="lsd -v"
+  MY_TREE_CMD_DEEP="$MY_LS_CMD --tree"
+  MY_TREE_CMD="$MY_TREE_CMD_DEEP --depth 4"
+  LS_GROUP_DIRS_FIRST="--group-dirs first"
+  LS_GROUP_DIRS_LAST="--group-dirs last"
+  ls_color_args='--color=always --icon=always'
+  tree_color_args=$ls_color_args
+fi
+
+MY_LS_CMD="$MY_LS_CMD $ls_color_args"
+MY_TREE_CMD_DEEP="$MY_TREE_CMD_DEEP $tree_color_args"
+MY_TREE_CMD="$MY_TREE_CMD $tree_color_args"
+alias ls="$MY_LS_CMD"
+alias tree="$ORIG_TREE_CMD -C"
+
+unset ls_color_args tree_color_args
+
+v() { ${=MY_LS_CMD} -l ${=LS_GROUP_DIRS_FIRST} "$@"; }
+d() { ${=MY_LS_CMD} -lA "$@"; }
+vl() { ${=MY_LS_CMD} -l ${=LS_GROUP_DIRS_LAST} "$@" | less; }
+dl() { d "$@" | less; }
+
+vt() { ${=MY_TREE_CMD} -l ${=LS_GROUP_DIRS_FIRST} "$@"; }
+dt() { ${=MY_TREE_CMD} -la "$@"; }
+vtl() { ${=MY_TREE_CMD} -l ${=LS_GROUP_DIRS_LAST} "$@" | less; }
+dtl() { dt "$@" | less; }
+
+vT() { ${=MY_TREE_CMD_DEEP} -l ${=LS_GROUP_DIRS_LAST} "$@" | less; }
+dT() { ${=MY_TREE_CMD_DEEP} -la "$@" | less; }
+
+##############
+#  Terminfo  #
+##############
+
+if [[ -z "$TERMINFO" ]]; then
+  export TERMINFO="$XDG_DATA_HOME/terminfo"
+  export TERMINFO_DIRS="$TERMINFO:/usr/share/terminfo"
+fi
+
+##############
+#  Readline  #
+##############
+
+ export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
+
+##########
+#  Less  #
+##########
+
+export LESS="-FSRXr"
+export LESSHISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/less/history
+mkdir -p "$(dirname "$LESSHISTFILE")"
+
+if [[ -f "$HOME/.lessfilter" ]]; then
+  export LESSOPEN="|$HOME/.lessfilter %s"
+fi
+
+##################
+#  Misc Aliases  #
+##################
+
+alias grep="grep --color=auto"
+alias l="less"
+alias md="mkdir -p"
+
+############
+#  Zoxide  #
+############
+
+if (( ! $+commands[zoxide] )); then
+  z() { builtin cd "$@" || return; }
+fi
+
+#########
+#  FZF  #
+#########
+
+if (( $+commands[fzf] )); then
+  source <(fzf --zsh)
+
+  if [[ -f "$__zsh_config_dir/zshrc_fzf" ]]; then
+    source "$__zsh_config_dir/zshrc_fzf"
+  fi
+fi
+
+############
+#  Neovim  #
+############
+
+if (( $+commands[nvim] )); then
+  export VIM_EDITOR=nvim
+  alias ai="nvim -c CodeCompanionChat +only +startinsert"
+  alias vim="nvim"
+else
+  export VIM_EDITOR="vim"
+
+  vim() {
+    VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC' command vim "$@"
+  }
+fi
+
+alias n="vim"
+alias vi="vim"
+
+############
+#  Unison  #
+############
+
+# Use password authentication with Unison
+if (( $+commands[unison] )); then
+  alias punison="unison -sshargs '-o PreferredAuthentications=password'"
+fi
+
+#########
+#  Bat  #
+#########
+
+if (( $+commands[bat] )); then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export BAT_THEME="Catppuccin Mocha"
+
+  alias b="bat"
+
+  alias bathelp="bat --plain --language=help"
+  help() {
+    "$@" --help 2>&1 | bathelp
+  }
+fi
+
+if (( $+commands[batgrep] )); then
+  alias bgr="batgrep"
+fi
+
+####################
+#  Delta & Ripgrep #
+####################
+
+if (( $+commands[delta] )); then
+  export DELTA_FEATURES="catppuccin-mocha +side-by-side"
+  # export DELTA_FEATURES="mantis-shrimp +side-by-side"
+
+  if (( $+commands[rg] )); then
+    rgl() { rg --smart-case --json "$@" | delta; }
+  else
+    rgl() { grep --ignore-case "$@" .; }
+  fi
+else
+  if (( $+commands[rg] )); then
+    rgl() { rg --smart-case "$@" | less; }
+  else
+    rgl() { grep --ignore-case "$@" . | less; }
+  fi
+fi
+
+#############
+#  Lazygit  #
+#############
+
+if (( $+commands[lazygit] )); then
+  LG_CONFIG_FILE=$(lazygit -print-config-dir)/config.yml,
+  LG_CONFIG_FILE+="$__zsh_config_dir/lazygit-theme-blue.yml"
+  export LG_CONFIG_FILE
+
+  export LAZYGIT_NEW_DIR_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/lazygit_newdir"
+
+  lg() {
+      lazygit "$@"
+
+      if [ -f "$LAZYGIT_NEW_DIR_FILE" ]; then
+          cd "$(< "$LAZYGIT_NEW_DIR_FILE")" || return
+          rm -f "$LAZYGIT_NEW_DIR_FILE" > /dev/null
+      fi
+  }
+fi
+
+###########
+#  Broot  #
+###########
+
+if [[ -f "$XDG_CONFIG_HOME/broot/launcher/bash/br" ]]; then
+  source "$XDG_CONFIG_HOME/broot/launcher/bash/br"
+fi
+
+###########
+#  OCaml  #
+###########
+
+if (( $+commands[ocaml] )); then
+  alias odeb="export OCAMLRUNPARAM=b"
+
+  if (( $+commands[rlwrap] )); then
+    alias locamldebug="rlwrap ocamldebug"
+  fi
+
+  fzf_ocaml_doc() {
+    local max_depth
+    if [[ -n $2 ]]; then
+      max_depth="-d $2"
+    else
+      max_depth=""
+    fi
+    fe -fdopts "-e mli -e ml -e h -e c $max_depth" $1
+  }
+
+  if (( $+commands[ocamlfind] )); then
+    OCAML_STDLIB=$(ocamlfind query stdlib)
+    alias stdlib="$VIM_EDITOR -R $OCAML_STDLIB/stdlib.mli"
+    stdlibs() { fzf_ocaml_doc "$OCAML_STDLIB" 2; }
+  fi
+fi
+
+##########
+#  Rust  #
+##########
+
+if (( $+commands[cargo] )); then
+  alias cb="cargo build --all-features --color=always"
+  alias ccy="cargo clippy --all-features --color=always"
+  alias ccyt="cargo clippy --all-features --tests --color=always"
+  alias cfm="cargo fmt --color=always"
+  alias ck="clear; cargo check --all-features --color=always"
+  alias ctnr="cargo test --all-features --no-run --color=always"
+  alias ct="clear; cargo test"
+
+  # Single-threaded test run (release mode)
+  cts() {
+    local arg
+    local args=()
+    local test_args=()
+    local found_double_dash=false
+
+    for arg in "$@"; do
+      if [[ "$arg" == "--" ]]; then
+        found_double_dash=true
+      elif $found_double_dash; then
+        test_args+=("$arg")
+      else
+        args+=("$arg")
+      fi
+    done
+
+    cargo test --release "${args[@]}" -- --test-threads=1 "${test_args[@]}"
+  }
+fi
+
+###############
+#  1Password  #
+###############
+
+if [[ $ZSH_UNAME == "Darwin" && -f $XDG_CONFIG_HOME/op/plugins.sh ]]; then
+  source $XDG_CONFIG_HOME/op/plugins.sh
+fi
+
+##########
+#  Tmux  #
+##########
+
+# export TMUX_PLUGIN_MANAGER_PATH="$XDG_DATA_HOME/tmux/plugins"
+
+if (( $+commands[tmux] )); then
+  tma() {
+    if tmux ls 2>/dev/null; then
+      tmux attach
+    else
+      tmux new
+    fi
+  }
+fi
+
+# Only for iTerm2 integration
+# tmux_exit_trap() {
+#   if [[ -n $TMUX &&
+#        $(tmux list-panes | wc -l) -eq 1 &&
+#        $(tmux list-windows | wc -l) -eq 1 ]]
+#   then
+#     # Use AppleScript to get the number of tabs in the current iTerm2 window
+#     if [[ -n $ITERM_SESSION_ID ]]; then
+#       osa_cmd='tell application "iTerm2" to tell current window to '
+#       osa_cmd+="return the number of tabs"
+#       tab_count=$(osascript -e "$osa_cmd")
+#       # Exit the current session if there is more than one tab
+#       if [[ $tab_count -gt 1 ]]; then
+#         exit
+#       fi
+#     fi
+#
+#     sessions=(
+#       "${(@f)$(tmux list-sessions -F "#{session_activity} #{session_name}" \
+#       | sort -k1,1n | cut -d' ' -f2)}"
+#     )
+#
+#     if [[ ${#sessions} -gt 1 ]]; then
+#       current_session=$(tmux display-message -p '#S')
+#       tmux switch-client -t "${sessions[-2]}"
+#       tmux kill-session -t "$current_session"
+#     fi
+#   fi
+# }
+#
+# trap tmux_exit_trap EXIT
+
+#############
+#  Private  #
+#############
+
+if [[ -f "$__zsh_config_dir/zshrc_private" ]]; then
+  source "$__zsh_config_dir/zshrc_private"
+fi

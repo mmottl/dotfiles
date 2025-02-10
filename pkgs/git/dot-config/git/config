@@ -1,0 +1,64 @@
+[include]
+path = ~/.config/git/private.gitconfig
+path = ~/.config/git/themes.gitconfig
+path = ~/.config/git/delta.gitconfig
+
+[color]
+ui = true
+status = auto
+
+[url "ssh://git@github.com/"]
+insteadOf = https://github.com/
+
+[init]
+defaultBranch = main
+
+[core]
+editor = nvim
+
+[push]
+default = simple
+
+[pull]
+ff = only
+
+[difftool "nvimdiff"]
+cmd = ~/.config/git/nvimdiff.sh
+
+[diff]
+algorithm = histogram
+indentHeuristic = true
+compactionHeuristic = true
+colorMoved = default
+tool = nvimdiff
+
+[merge]
+tool = nvimdiff4
+conflictstyle = diff3
+
+[mergetool]
+prompt = false
+
+[mergetool "nvimdiff4"]
+cmd = ~/.config/git/nvimdiff4.sh
+
+[alias]
+pdiff = "!~/.config/git/pdiff.sh"
+wdiff = diff --color-words
+dft = -c diff.external=difft diff
+
+[remote "origin"]
+fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+
+[filter "media"]
+clean = git media clean %f
+smudge = git media smudge %f
+required = true
+
+[filter "lfs"]
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+
+# vim: set filetype=gitconfig:

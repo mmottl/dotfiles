@@ -1,0 +1,80 @@
+#!/usr/bin/env zsh
+
+#######################################################################
+#                            ZSHENV DARWIN                            #
+#######################################################################
+
+###################################
+#  XDG Runtime Dir Specification  #
+###################################
+
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-$TMPDIR/$(id -u)-runtime-dir}
+
+if [[ ! -d "$XDG_RUNTIME_DIR" ]]; then
+  mkdir -p -- "$XDG_RUNTIME_DIR" && chmod 700 "$XDG_RUNTIME_DIR"
+fi
+
+######################
+#  Helper Functions  #
+######################
+
+path_append() {
+  local var_name=$1
+  local dir=$2
+  if [[ -d "$dir" ]]; then
+    if [[ -z "${(P)var_name}" ]]; then
+      export $var_name="$dir"
+    else
+      export $var_name="${(P)var_name}:$dir"
+    fi
+  fi
+}
+
+#####################
+#  System Man Path  #
+#####################
+
+path_append MANPATH "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/\
+usr/share/man"
+
+##############
+#  Homebrew  #
+##############
+
+# Homebrew environment
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# DYLD_LIBRARY_PATH is intentionally ignored by Bazelisk/Bazel for security
+# Use specific library paths in build configs instead
+# export DYLD_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_LIBRARY_PATH
+
+# Collect valid paths first
+typeset -a valid_paths
+() {
+  local dir
+  for dir in \
+    /opt/homebrew/opt/coreutils/libexec/gnubin \
+    /opt/homebrew/opt/findutils/libexec/gnubin \
+    /opt/homebrew/opt/gnu-tar/libexec/gnubin \
+    /opt/homebrew/opt/grep/libexec/gnubin \
+    /opt/homebrew/opt/postgresql@15/bin \
+    /opt/homebrew/opt/util-linux/bin; do
+    [[ -d "$dir" ]] && valid_paths+=("$dir")
+  done
+}
+
+# Homebrew path settings using validated paths
+path=(
+  $valid_paths
+  $path
+)
+
+# Homebrew manpath settings
+path_append MANPATH "/opt/homebrew/opt/coreutils/libexec/gnuman"
+path_append MANPATH "/opt/homebrew/opt/util-linux/include"
+
+# Homebrew pkg config path
+path_append PKG_CONFIG_PATH "/opt/homebrew/opt/sqlite/lib/pkgconfig"
+path_append PKG_CONFIG_PATH "/opt/homebrew/opt/libpq/lib/pkgconfig"

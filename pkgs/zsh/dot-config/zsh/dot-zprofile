@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+#######################################################################
+#                              ZPROFILE                               #
+#######################################################################
+
+if [[ -f "$__zsh_config_dir/zprofile_$ZSH_UNAME" ]]; then
+  source "$__zsh_config_dir/zprofile_$ZSH_UNAME"
+fi

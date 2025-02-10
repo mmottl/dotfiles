@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+#######################################################################
+#                             ZSHRC LINUX                             #
+#######################################################################
+
+###################################
+#  XDG Runtime Dir Specification  #
+###################################
+
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
+
+if [[ ! -d "$XDG_RUNTIME_DIR" ]]; then
+  mkdir -p "$XDG_RUNTIME_DIR"
+  chmod 700 "$XDG_RUNTIME_DIR"
+fi
+
+###############
+#  Oh-My-Zsh  #
+###############
+
+plugins+=(
+  yum
+)

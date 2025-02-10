@@ -1,0 +1,58 @@
+#!/bin/sh
+
+usage() {
+  printf "Usage: %s <file_or_directory>\n" "$0" >&2
+  exit 1
+}
+
+[ -z "$1" ] && usage
+
+commands_exist() {
+  for cmd in "$@"; do
+    command -v "$cmd" >/dev/null 2>&1 || return 1
+  done
+  return 0
+}
+
+mime=$(file -bL --mime-type "$1")
+category=${mime%%/*}
+kind=${mime##*/}
+
+if [ -d "$1" ]; then
+  if commands_exist lsd; then
+    lsd --git -hl --color=always "$1"
+  else
+    ls -la "$1"
+  fi
+  exit 0
+elif [ "$category" = image ]; then
+  exit_status=1
+  if command -v chafa >/dev/null 2>&1; then
+    chafa "$1"
+    exit_status=0
+  fi
+  if command -v exiftool >/dev/null 2>&1; then
+    exiftool "$1"
+    exit_status=0
+  fi
+  exit "$exit_status"
+elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] ||
+  [ "$kind" = vnd.ms-excel ]; then
+  if commands_exist in2csv xsv bat; then
+    in2csv "$1" | xsv table | bat -ltsv --color=always
+    exit 0
+  fi
+elif [ "$category" = text ]; then
+  if commands_exist bat; then
+    bat --color=always "$1"
+  else
+    cat "$1"
+  fi
+  exit 0
+fi
+
+if command -v batpipe >/dev/null 2>&1; then
+  batpipe "$1"
+fi
+
+exit 1

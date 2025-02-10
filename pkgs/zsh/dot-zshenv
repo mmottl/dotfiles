@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+
+#######################################################################
+#                               ZSHENV                                #
+#######################################################################
+
+######################################
+#  XDG Base Directory Specification  #
+######################################
+
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+
+###################
+#  Zsh Locations  #
+###################
+
+# Fish-like dirs
+export __zsh_config_dir=${XDG_CONFIG_HOME}/zsh
+export __zsh_user_data_dir=${XDG_DATA_HOME}/zsh
+export __zsh_cache_dir=${XDG_CACHE_HOME}/zsh
+
+export ZDOTDIR="$__zsh_config_dir"
+
+# Ensure Zsh directories exist.
+() {
+  local zdir
+  for zdir in $@; do
+  if [[ ! -d "${(P)zdir}" ]]; then
+    mkdir -p -- "${(P)zdir}" && chmod 700 "${(P)zdir}"
+  fi
+  done
+} __zsh_{config,user_data,cache}_dir XDG_{CONFIG,CACHE,DATA,STATE}_HOME
+
+############################
+#  Source Regular .zshenv  #
+############################
+
+if [[ -f "$ZDOTDIR/.zshenv" ]]; then
+  source "$ZDOTDIR/.zshenv"
+fi

@@ -25,12 +25,6 @@ if ! command -v stow >/dev/null 2>&1; then
   exit 1
 fi
 
-# Determine default packages
-DEFAULT_PACKAGES=$(find . -maxdepth 1 -type d \
-  -not -name '.*' \
-  -not -name '.' \
-  | sed 's|^./||')
-
 # Usage information
 usage() {
   printf "%bUsage: %s [-S|-D|-R] [-n] [-c] [packages...]%b\n" \
@@ -57,9 +51,15 @@ while getopts "SDRnc:h" opt; do
   esac
 done
 
+cd pkgs
+
 shift $((OPTIND - 1))
 if [ $# -eq 0 ]; then
-  packages="$DEFAULT_PACKAGES"
+  # Determine default packages
+  packages=$(find . -maxdepth 1 -type d \
+    -not -name '.*' \
+    -not -name '.' \
+    | sed 's|^./||')
 else
   packages="$*"
 fi

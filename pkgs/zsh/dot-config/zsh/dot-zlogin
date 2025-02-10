@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+#######################################################################
+#                               ZLOGIN                                #
+#######################################################################
+
+# Prevent .zlogin evaluation in non-interactive shells
+if [[ -o interactive ]]; then
+  # All your .zlogin code goes here
+else
+  # Non-interactive shell: do nothing
+  :
+fi

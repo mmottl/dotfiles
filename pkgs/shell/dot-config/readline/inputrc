@@ -1,0 +1,23 @@
+# Disable audible bell
+set bell-style none
+
+# Allow 8-bit input (e.g., accented characters)
+set convert-meta on
+
+# Use vi editing mode
+set editing-mode vi
+set keymap vi-insert
+
+# Automatically display all ambiguous completions
+set show-all-if-ambiguous on
+
+# Enable case-insensitive completion
+set completion-ignore-case on
+
+# Bind Ctrl-r to reverse-i-search in vi-command mode
+"$if mode=vi"
+"\C-r": history-search-backward
+"$endif"
+
+# Clear screen (Ctrl-l)
+"\C-l": clear-screen
