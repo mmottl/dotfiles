@@ -86,8 +86,7 @@ _fzf_comprun() {
 }
 
 _git_root_or_dot() {
-  git rev-parse --show-superproject-working-tree --show-toplevel \
-    2>/dev/null || echo .
+  git rev-parse --show-toplevel 2>/dev/null || echo .
 }
 
 # Fuzzy explore with Neovim
