@@ -137,7 +137,7 @@ plugins+=(
   fancy-ctrl-z
   web-search
   zoxide
-  zsh-autocomplete
+  # zsh-autocomplete  # Prefer without, but a matter of taste
   zsh-autosuggestions
   zsh-cargo-completion
   zsh-completions
