@@ -5,11 +5,14 @@
 export FZF_TMUX_OPTS="--tmux=90%,90%"
 
 # Default options
-if [[ -f "$HOME/.gitignore_global" ]]; then
-  export FZF_COMMON_COMMAND="fd --hidden --follow --ignore-file=$HOME/.gitignore_global --exclude .git --strip-cwd-prefix"
+if [[ -f "$XDG_CONFIG_HOME/git/ignore" ]]; then
+  FZF_COMMON_COMMAND="fd --hidden --follow "
+  FZF_COMMON_COMMAND+="--ignore-file=$XDG_CONFIG_HOME/git/ignore "
+  FZF_COMMON_COMMAND+="--exclude .git --strip-cwd-prefix"
 else
-  export FZF_COMMON_COMMAND="fd --hidden --follow --exclude .git --strip-cwd-prefix"
+  FZF_COMMON_COMMAND="fd --hidden --follow --exclude .git --strip-cwd-prefix"
 fi
+export FZF_COMMON_COMMAND
 export FZF_LSD_LIST="--batch-size 1000 -X ${=MY_LS_CMD} -1 -d"
 export FZF_LSD_PREVIEW="${=MY_TREE_CMD} -l ARG | head -n 1000"
 export FZF_DEFAULT_COMMAND="${=FZF_COMMON_COMMAND} --type f ${=FZF_LSD_LIST}"
@@ -195,8 +198,8 @@ fdr() {
 # Git completion with FZF
 
 # Source Git completion help for FZF
-if [[ -f "$HOME/.zsh/fzf-git.sh" ]]; then
-  source "$HOME/.zsh/fzf-git.sh"
+if [[ -f "$XDG_CONFIG_HOME/zsh/fzf-git.sh" ]]; then
+  source "$XDG_CONFIG_HOME/zsh/fzf-git.sh"
 fi
 
 # Reconfigure Git FZF function
