@@ -23,7 +23,7 @@ default = simple
 ff = only
 
 [difftool "nvimdiff"]
-cmd = ~/.config/git/nvimdiff.sh
+cmd = ~/.config/git/nvimdiff.sh "$LOCAL" "$REMOTE"
 
 [diff]
 algorithm = histogram
@@ -40,7 +40,7 @@ conflictstyle = diff3
 prompt = false
 
 [mergetool "nvimdiff4"]
-cmd = ~/.config/git/nvimdiff4.sh
+cmd = ~/.config/git/nvimdiff4.sh "$LOCAL" "$BASE" "$REMOTE" "$MERGED"
 
 [alias]
 pdiff = "!~/.config/git/pdiff.sh"

@@ -2,4 +2,7 @@
 
 set -eu
 
-nvim -d "$LOCAL" +'colorscheme catppuccin' "$REMOTE" -c 'wincmd w' -c 'wincmd J'
+LOCAL="$1"
+REMOTE="$2"
+
+nvim -d +'colorscheme catppuccin' "$LOCAL" "$REMOTE" -c 'wincmd w' -c 'wincmd J'
