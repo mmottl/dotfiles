@@ -325,7 +325,7 @@ fi
 
 if (( $+commands[cargo] )); then
   alias cb="cargo build --all-features --color=always"
-  alias ccy="cargo clippy --all-features --color=always"
+  alias ccy="cargo clippy --all-features --all-targets --color=always"
   alias ccyt="cargo clippy --all-features --tests --color=always"
   alias cfm="cargo fmt --color=always"
   alias ck="clear; cargo check --all-features --color=always"
