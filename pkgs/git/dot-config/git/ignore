@@ -28,4 +28,11 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Aider
+.aider*
+.env
+
+# Goose
+.goosehints
+
 # vim: set filetype=gitignore:
