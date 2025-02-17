@@ -1,0 +1,39 @@
+[general]
+# Import theme, has to come before the rest
+import = ["~/.config/alacritty/themes/campbell.toml"]
+
+# [shell]
+# program = "/opt/homebrew/bin/zsh"
+# args = ["-l", "-c", "tmux attach || tmux"]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+option_as_alt = "Both"
+startup_mode = "Fullscreen"
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[mouse]
+hide_when_typing = true
+
+[font]
+size = 10
+offset = { x = 0, y = 0 }
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
+
+[colors.primary]
+background = '#000000'
+foreground = '#c8c8c8'
+
+[selection]
+save_to_clipboard = true
+
+[scrolling]
+history = 100000
