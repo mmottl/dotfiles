@@ -118,6 +118,12 @@ fi
 
 export GHCUP_USE_XDG_DIRS=true
 
+########
+#  Go  #
+########
+
+export GOPATH="$XDG_DATA_HOME/go"
+
 ############
 #  Python  #
 ############
