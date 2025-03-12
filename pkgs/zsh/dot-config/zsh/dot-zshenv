@@ -153,7 +153,10 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 #  Docker  #
 ############
 
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+# TODO: activate once Docker Desktop supports this
+# export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+
+export DOCKER_CONFIG="$HOME/.docker"
 
 if [[ -d "$DOCKER_CONFIG/bin" ]]; then
   path=($DOCKER_CONFIG/bin $path)

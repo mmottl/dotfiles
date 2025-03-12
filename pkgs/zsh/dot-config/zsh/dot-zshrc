@@ -378,8 +378,8 @@ fi
 #  Docker  #
 ############
 
-if [[ -d "/Users/mmottl/.docker/completions" ]]; then
-    fpath=(/Users/mmottl/.docker/completions $fpath)
+if [[ -d "$DOCKER_CONFIG/completions" ]]; then
+    fpath=($DOCKER_CONFIG/completions $fpath)
     autoload -Uz compinit
     compinit
 fi
