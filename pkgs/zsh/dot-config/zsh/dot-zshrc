@@ -42,6 +42,14 @@ export ZSH_COMPDUMP="$__zsh_cache_dir/.zcompdump-$HOST-${ZSH_VERSION}"
 autoload -Uz zcalc
 autoload -Uz zmv
 
+###############################
+#  Source Oh-My-Zsh Settings  #
+###############################
+
+if [[ -f "$__zsh_config_dir/zshrc_omz" ]]; then
+  source "$__zsh_config_dir/zshrc_omz"
+fi
+
 ######################
 #  History Settings  #
 ######################
@@ -56,14 +64,6 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt INC_APPEND_HISTORY
 
 unsetopt SHARE_HISTORY
-
-###############################
-#  Source Oh-My-Zsh Settings  #
-###############################
-
-if [[ -f "$__zsh_config_dir/zshrc_omz" ]]; then
-  source "$__zsh_config_dir/zshrc_omz"
-fi
 
 #############################
 #  Shell-specific Settings  #
@@ -283,6 +283,19 @@ if (( $+commands[lazygit] )); then
   }
 fi
 
+##########
+#  Yazi  #
+##########
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 ###########
 #  Broot  #
 ###########
@@ -359,6 +372,16 @@ fi
 
 if [[ $ZSH_UNAME == "Darwin" && -f $XDG_CONFIG_HOME/op/plugins.sh ]]; then
   source $XDG_CONFIG_HOME/op/plugins.sh
+fi
+
+############
+#  Docker  #
+############
+
+if [[ -d "/Users/mmottl/.docker/completions" ]]; then
+    fpath=(/Users/mmottl/.docker/completions $fpath)
+    autoload -Uz compinit
+    compinit
 fi
 
 ##########
