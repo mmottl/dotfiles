@@ -1,0 +1,19 @@
+# Color scheme
+
+theme = tokyonight_moon
+# theme = catppuccin-mocha
+# theme = deep
+# background = #000000
+# foreground = #c8c8c8
+
+# Font settings
+font-size = 12
+
+# Window settings
+fullscreen = true
+
+# Mouse settings
+mouse-hide-while-typing = true
+
+# Copy/paste settings
+copy-on-select = clipboard
