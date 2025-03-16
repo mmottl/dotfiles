@@ -91,49 +91,47 @@ fi
 #  Directory Listing and Colorization  #
 ########################################
 
-MY_LS_CMD="ls --sort=v"
-ORIG_TREE_CMD="tree -v"
-MY_TREE_CMD_DEEP="$ORIG_TREE_CMD --filelimit 100 -p -u --si -D"
-MY_TREE_CMD="$MY_TREE_CMD_DEEP -L 4"
-
-alias ls="$MY_LS_CMD"
-alias tree="$ORIG_TREE_CMD"
-
-ls_color_args="--color"
-tree_color_args='-C'
-LS_GROUP_DIRS_FIRST="--group-directories-first"
-LS_GROUP_DIRS_LAST=""
-
 if (( $+commands[lsd] )); then
   MY_LS_CMD="lsd -v"
   MY_TREE_CMD_DEEP="$MY_LS_CMD --tree"
   MY_TREE_CMD="$MY_TREE_CMD_DEEP --depth 4"
   LS_GROUP_DIRS_FIRST="--group-dirs first"
   LS_GROUP_DIRS_LAST="--group-dirs last"
-  ls_color_args='--color=always --icon=always'
-  tree_color_args=$ls_color_args
+  LS_COLOR_LESS="--color=always --icon=always"
+  TREE_COLOR_LESS="$LS_COLOR_LESS"
+else
+  MY_LS_CMD="ls --sort=v"
+  MY_TREE_CMD_DEEP="tree -v --filelimit 100 -p -u --si -D"
+  MY_TREE_CMD="$MY_TREE_CMD_DEEP -L 4"
+  LS_GROUP_DIRS_FIRST="--group-directories-first"
+  LS_GROUP_DIRS_LAST=""
+  LS_COLOR_LESS="--color=always"
+  TREE_COLOR_LESS="-C"
 fi
 
-MY_LS_CMD="$MY_LS_CMD $ls_color_args"
-MY_TREE_CMD_DEEP="$MY_TREE_CMD_DEEP $tree_color_args"
-MY_TREE_CMD="$MY_TREE_CMD $tree_color_args"
 alias ls="$MY_LS_CMD"
-alias tree="$ORIG_TREE_CMD -C"
-
-unset ls_color_args tree_color_args
+alias tree="tree -v"
 
 v() { ${=MY_LS_CMD} -l ${=LS_GROUP_DIRS_FIRST} "$@"; }
 d() { ${=MY_LS_CMD} -lA "$@"; }
-vl() { ${=MY_LS_CMD} -l ${=LS_GROUP_DIRS_LAST} "$@" | less; }
-dl() { d "$@" | less; }
+
+vl() { ${=MY_LS_CMD} -l ${=LS_GROUP_DIRS_LAST} ${=LS_COLOR_LESS} "$@" | less; }
+dl() { d ${=LS_COLOR_LESS} "$@" | less; }
+
+t() { ${=MY_TREE_CMD} "$@"; }
+tl() { ${=MY_TREE_CMD} ${=TREE_COLOR_LESS} "$@" | less; }
+
+ta() { ${=MY_TREE_CMD} -A "$@"; }
+tal() { ${=MY_TREE_CMD} ${=TREE_COLOR_LESS} -A "$@" | less; }
 
 vt() { ${=MY_TREE_CMD} -l ${=LS_GROUP_DIRS_FIRST} "$@"; }
 dt() { ${=MY_TREE_CMD} -la "$@"; }
-vtl() { ${=MY_TREE_CMD} -l ${=LS_GROUP_DIRS_LAST} "$@" | less; }
-dtl() { dt "$@" | less; }
 
-vT() { ${=MY_TREE_CMD_DEEP} -l ${=LS_GROUP_DIRS_LAST} "$@" | less; }
-dT() { ${=MY_TREE_CMD_DEEP} -la "$@" | less; }
+vtl() { ${=MY_TREE_CMD} -l ${=LS_GROUP_DIRS_LAST} ${=TREE_COLOR_LESS} "$@" | less; }
+dtl() { dt ${=TREE_COLOR_LESS} "$@" | less; }
+
+vT() { ${=MY_TREE_CMD_DEEP} -l ${=LS_GROUP_DIRS_LAST} ${=TREE_COLOR_LESS} "$@" | less; }
+dT() { ${=MY_TREE_CMD_DEEP} -la ${=TREE_COLOR_LESS} "$@" | less; }
 
 ##############
 #  Terminfo  #
