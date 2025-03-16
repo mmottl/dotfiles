@@ -13,8 +13,8 @@ else
   FZF_COMMON_COMMAND="fd --hidden --follow --exclude .git --strip-cwd-prefix"
 fi
 export FZF_COMMON_COMMAND
-export FZF_LSD_LIST="--batch-size 1000 -X ${=MY_LS_CMD} -1 -d"
-export FZF_LSD_PREVIEW="${=MY_TREE_CMD} -l ARG | head -n 1000"
+export FZF_LSD_LIST="--batch-size 1000 -X ${=MY_LS_CMD} ${=LS_COLOR_LESS} -1 -d"
+export FZF_LSD_PREVIEW="${=MY_TREE_CMD} ${=LS_COLOR_LESS} ARG | head -n 1000"
 export FZF_DEFAULT_COMMAND="${=FZF_COMMON_COMMAND} --type f ${=FZF_LSD_LIST}"
 export FZF_DEFAULT_OPTS="\
   --color hl:reverse:bold,hl+:reverse:bold --highlight-line \
@@ -189,7 +189,7 @@ fdr() {
   }
   local dir
   # shellcheck disable=SC2046
-  dir=$(${=MY_LS_CMD} -1 -U -d $(get_parent_dirs "$(realpath "${1:-$PWD}")") \
+  dir=$(${=MY_LS_CMD} ${=LS_COLOR_LESS} -1 -U -d $(get_parent_dirs "$(realpath "${1:-$PWD}")") \
     | fzf-tmux --ansi --scheme=path --preview "${FZF_LSD_PREVIEW/ARG/{2\}}" \
     | cut -d' ' -f2-)
   z "$dir" || return
