@@ -20,7 +20,9 @@ return {
     },
 
     opts = {
-      -- Configure `adapters` (e.g. tokens) in a private configuration file
+      -- Configure `adapters` (e.g. tokens) in a private configuration file.
+      -- Use GPG and something like:
+      --   api_key = "cmd:gpg --batch --quiet --decrypt path-to-encrypted-token.gpg",
       strategies = {
         inline = {
           adapter = "openai",
