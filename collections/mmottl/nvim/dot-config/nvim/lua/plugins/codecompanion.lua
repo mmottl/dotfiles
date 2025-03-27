@@ -31,7 +31,7 @@ return {
           adapter = "openai",
           roles = {
             llm = function(adapter)
-              return "  CodeCompanion (" .. adapter.formatted_name .. ")"
+              return "  " .. adapter.formatted_name
             end,
             user = "  Me",
           },
@@ -52,7 +52,7 @@ return {
       },
       display = {
         chat = {
-          show_settings = true,
+          -- show_settings = true,
           window = {
             layout = "horizontal",
             position = "bottom",
@@ -103,7 +103,7 @@ return {
         mode = { "n", "v" },
         noremap = true,
         silent = true,
-        desc = "Inline prompt (CodeCompanion)",
+        desc = "Inline Prompt (CodeCompanion)",
       },
     },
   },
