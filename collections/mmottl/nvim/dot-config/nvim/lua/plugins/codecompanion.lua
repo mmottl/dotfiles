@@ -31,7 +31,7 @@ return {
           adapter = "openai",
           roles = {
             llm = function(adapter)
-              return "  " .. adapter.formatted_name
+              return "  CodeCompanion (" .. adapter.formatted_name .. ")"
             end,
             user = "  Me",
           },
