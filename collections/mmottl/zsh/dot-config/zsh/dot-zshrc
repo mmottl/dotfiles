@@ -113,25 +113,24 @@ alias ls="$MY_LS_CMD"
 alias tree="tree -v"
 
 v() { ${=MY_LS_CMD} -l ${=LS_GROUP_DIRS_FIRST} "$@"; }
-d() { ${=MY_LS_CMD} -lA "$@"; }
-
 vl() { ${=MY_LS_CMD} -l ${=LS_GROUP_DIRS_LAST} ${=LS_COLOR_LESS} "$@" | less; }
+vt() { ${=MY_TREE_CMD} -l ${=LS_GROUP_DIRS_FIRST} "$@"; }
+vtl() { ${=MY_TREE_CMD} -l ${=LS_GROUP_DIRS_LAST} ${=TREE_COLOR_LESS} "$@" | less; }
+vT() { ${=MY_TREE_CMD_DEEP} -l ${=LS_GROUP_DIRS_LAST} ${=TREE_COLOR_LESS} "$@" | less; }
+
+d() { ${=MY_LS_CMD} -lA "$@"; }
 dl() { d ${=LS_COLOR_LESS} "$@" | less; }
+dt() { ${=MY_TREE_CMD} -la "$@"; }
+dtl() { dt ${=TREE_COLOR_LESS} "$@" | less; }
+dT() { ${=MY_TREE_CMD_DEEP} -la ${=TREE_COLOR_LESS} "$@" | less; }
 
 t() { ${=MY_TREE_CMD} "$@"; }
 tl() { ${=MY_TREE_CMD} ${=TREE_COLOR_LESS} "$@" | less; }
+T() { ${=MY_TREE_CMD_DEEP} ${=TREE_COLOR_LESS} "$@" | less; }
 
 ta() { ${=MY_TREE_CMD} -A "$@"; }
-tal() { ${=MY_TREE_CMD} ${=TREE_COLOR_LESS} -A "$@" | less; }
-
-vt() { ${=MY_TREE_CMD} -l ${=LS_GROUP_DIRS_FIRST} "$@"; }
-dt() { ${=MY_TREE_CMD} -la "$@"; }
-
-vtl() { ${=MY_TREE_CMD} -l ${=LS_GROUP_DIRS_LAST} ${=TREE_COLOR_LESS} "$@" | less; }
-dtl() { dt ${=TREE_COLOR_LESS} "$@" | less; }
-
-vT() { ${=MY_TREE_CMD_DEEP} -l ${=LS_GROUP_DIRS_LAST} ${=TREE_COLOR_LESS} "$@" | less; }
-dT() { ${=MY_TREE_CMD_DEEP} -la ${=TREE_COLOR_LESS} "$@" | less; }
+tal() { ${=MY_TREE_CMD} -A ${=TREE_COLOR_LESS} "$@" | less; }
+Ta() { ${=MY_TREE_CMD_DEEP} -A ${=TREE_COLOR_LESS} "$@" | less; }
 
 ##############
 #  Terminfo  #
