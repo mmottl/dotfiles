@@ -14,6 +14,11 @@ vim.keymap.set("n", "<Esc>", function()
   end
 end)
 
+-- Duplicate a line and comment out the first line
+vim.keymap.set("n", "yc", "yygccp", { remap = true })
+
+-- OCaml
+
 -- Function to switch between OCaml interface (.mli) and implementation (.ml) files
 local function ocaml_switch(newwin)
   local bufname = vim.fn.bufname()
