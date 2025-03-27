@@ -38,7 +38,7 @@ return {
           keymaps = {
             close = {
               modes = {
-                n = "q",
+                n = "Q",
                 i = "<Nop>",
               },
               noremap = true,
@@ -66,7 +66,7 @@ return {
     keys = {
       { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
       {
-        "<leader>aa",
+        "<leader>at",
         ":CodeCompanionChat Toggle<cr>",
         mode = { "n", "v" },
         noremap = true,
@@ -82,7 +82,7 @@ return {
         desc = "New Chat (CodeCompanion)",
       },
       {
-        "<leader>ac",
+        "<leader>aa",
         ":CodeCompanionActions<cr>",
         mode = { "n", "v" },
         noremap = true,
