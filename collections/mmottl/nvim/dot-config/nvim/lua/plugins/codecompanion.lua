@@ -9,6 +9,7 @@ return {
         "MeanderingProgrammer/render-markdown.nvim",
         ft = { "markdown", "codecompanion" },
       },
+      "j-hui/fidget.nvim",
     },
 
     cmd = {
@@ -62,6 +63,9 @@ return {
         },
       },
     },
+    init = function()
+      require("plugins.codecompanion.fidget-spinner"):init()
+    end,
 
     keys = {
       { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
