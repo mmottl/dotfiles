@@ -1,3 +1,14 @@
+-- Prompt used for the general AI assistant
+local assistant_system_prompt = "You are a versatile AI assistant, always ready to "
+  .. "help. Provide responses that are accurate, helpful, and also concise."
+  .. " Assist users with tasks like writing, summarization, and brainstorming."
+  .. " You can also help with coding and learning by using your language capabilities."
+  .. " Prioritize factual accuracy, and clearly state when you lack needed information."
+  .. " Also state clearly when you cannot fulfill a specific user request."
+  .. " Avoid any speculation or generating content that is potentially false."
+  .. " Adapt your tone and writing style to be helpful, meeting user needs."
+  .. " Always be informative for the user's specific contextual needs."
+
 return {
   {
     "olimorris/codecompanion.nvim",
@@ -62,7 +73,56 @@ return {
           },
         },
       },
+
+      prompt_library = {
+        ["Smart General Assistant"] = {
+          strategy = "chat",
+          description = "A general assistant - smart but not the fastest",
+          opts = {
+            short_name = "thinker",
+            ignore_system_prompt = true,
+            -- Configure accordingly, preferably in a private file
+            -- adapter = {
+            --   name = "g25",
+            -- },
+          },
+          prompts = {
+            {
+              role = "system",
+              content = assistant_system_prompt,
+            },
+            {
+              role = "user",
+              content = " ",
+            },
+          },
+        },
+
+        ["Fast General Assistant"] = {
+          strategy = "chat",
+          description = "A general assistant - fast but not the smartest",
+          opts = {
+            short_name = "assistant",
+            ignore_system_prompt = true,
+            -- Configure accordingly, preferably in a private file
+            -- adapter = {
+            --   name = "gfl",
+            -- },
+          },
+          prompts = {
+            {
+              role = "system",
+              content = assistant_system_prompt,
+            },
+            {
+              role = "user",
+              content = " ",
+            },
+          },
+        },
+      },
     },
+
     init = function()
       require("plugins.codecompanion.fidget-spinner"):init()
     end,
