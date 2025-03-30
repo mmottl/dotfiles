@@ -568,11 +568,17 @@ bind -r ] swap-window -t +1 \; select-window -t +1
 #  AI  #
 ########
 
-# Tmux binding to launch Neovim CodeCompanion in a horizontally split pane
-bind a split-window -v 'nvim -c CodeCompanionChat +only +startinsert'
+# Launch Neovim CodeCompanion with a fast assistant in a horizontally split pane
+bind a split-window -v 'nvim -c "CodeCompanion /assistant" +only +startinsert'
 
-# Tmux binding to launch Neovim CodeCompanion in a new window
-bind A new-window 'nvim -c CodeCompanionChat +only +startinsert'
+# Launch Neovim CodeCompanion with a fast assistant in a new window
+bind A new-window 'nvim -c "CodeCompanion /assistant" +only +startinsert'
+
+# Launch Neovim CodeCompanion with a smart assistant in a horizontally split pane
+bind t split-window -v 'nvim -c "CodeCompanion /thinker" +only +startinsert'
+
+# Launch Neovim CodeCompanion with a smart assistant in a new window
+bind T new-window 'nvim -c "CodeCompanion /thinker" +only +startinsert'
 
 ################
 #  Pathpicker  #
