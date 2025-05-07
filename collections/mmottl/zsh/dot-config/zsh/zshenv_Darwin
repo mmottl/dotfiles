@@ -78,3 +78,11 @@ path_append MANPATH "/opt/homebrew/opt/util-linux/include"
 # Homebrew pkg config path
 path_append PKG_CONFIG_PATH "/opt/homebrew/opt/sqlite/lib/pkgconfig"
 path_append PKG_CONFIG_PATH "/opt/homebrew/opt/libpq/lib/pkgconfig"
+
+##############
+#  OrbStack  #
+##############
+
+if [[ -f "$HOME/.orbstack/shell/init.zsh" ]]; then
+  source "$HOME/.orbstack/shell/init.zsh" 2>/dev/null || :
+fi
