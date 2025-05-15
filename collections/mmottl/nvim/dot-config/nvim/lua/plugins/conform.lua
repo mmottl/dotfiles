@@ -6,6 +6,11 @@ return {
       bzl = { "buildifier" },
       markdown = { "dprint" },
     },
+    formatters = {
+      shfmt = {
+        prepend_args = { "-s", "-i", "2", "-ci", "-bn" },
+      },
+    },
     -- log_level = vim.log.levels.DEBUG,
   },
 }
