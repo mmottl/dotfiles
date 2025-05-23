@@ -112,6 +112,12 @@ fi
 alias ls="$MY_LS_CMD"
 alias tree="tree -v"
 
+less() {
+  # Some versions of `less` seem to be ignoring `-r` in the environment variable
+  # `LESS` but honor it when passed on the command line.
+  command less -r "$@"
+}
+
 v() { ${=MY_LS_CMD} -l ${=LS_GROUP_DIRS_FIRST} "$@"; }
 vl() { ${=MY_LS_CMD} -l ${=LS_GROUP_DIRS_LAST} ${=LS_COLOR_LESS} "$@" | less; }
 vt() { ${=MY_TREE_CMD} -l ${=LS_GROUP_DIRS_FIRST} "$@"; }
