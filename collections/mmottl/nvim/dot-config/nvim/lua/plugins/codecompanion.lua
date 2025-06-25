@@ -75,16 +75,16 @@ return {
       },
 
       prompt_library = {
-        ["Fast General Assistant"] = {
+        ["General Assistant"] = {
           strategy = "chat",
-          description = "A fast general assistant",
+          description = "A general assistant",
           opts = {
             index = 20,
             short_name = "assistant",
             ignore_system_prompt = true,
-            -- Configure accordingly, preferably in a private file
+            -- Configure accordingly, preferably in a private file, e.g.:
             -- adapter = {
-            --   name = "gfl",
+            --   name = "gemini_flash",
             -- },
           },
           prompts = {
@@ -106,9 +106,33 @@ return {
             index = 21,
             short_name = "thinker",
             ignore_system_prompt = true,
-            -- Configure accordingly, preferably in a private file
+            -- Configure accordingly, preferably in a private file, e.g.:
             -- adapter = {
-            --   name = "g25",
+            --   name = "gemini_pro",
+            -- },
+          },
+          prompts = {
+            {
+              role = "system",
+              content = assistant_system_prompt,
+            },
+            {
+              role = "user",
+              content = " ",
+            },
+          },
+        },
+
+        ["Fast General Assistant"] = {
+          strategy = "chat",
+          description = "A fast general assistant",
+          opts = {
+            index = 22,
+            short_name = "speeder",
+            ignore_system_prompt = true,
+            -- Configure accordingly, preferably in a private file, e.g.:
+            -- adapter = {
+            --   name = "gemini_flash_lite",
             -- },
           },
           prompts = {
@@ -127,7 +151,7 @@ return {
           strategy = "chat",
           description = "Simplify the selected code",
           opts = {
-            index = 22,
+            index = 23,
             is_default = false,
             is_slash_cmd = false,
             modes = { "v" },
