@@ -76,6 +76,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- Terminal
 vim.api.nvim_create_autocmd({ "TermOpen", "TermClose" }, {
   group = vim.api.nvim_create_augroup(
     "terminal_keybindings_override",
@@ -98,5 +99,41 @@ vim.api.nvim_create_autocmd({ "TermOpen", "TermClose" }, {
       -- to restore any global Neovim mappings.
       vim.keymap.del("t", "<C-l>", { buffer = ev.buf })
     end
+  end,
+})
+
+-- OCaml
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "ocaml",
+  callback = function()
+    -- Function to switch between OCaml interface (.mli) and implementation (.ml) files
+    local function ocaml_switch(newwin)
+      local bufname = vim.fn.bufname()
+      local fname
+
+      if bufname:match("%.mli$") then
+        fname = bufname:gsub("%.mli$", ".ml")
+      elseif bufname:match("%.ml$") then
+        fname = bufname .. "i"
+      else
+        return
+      end
+
+      fname = vim.fn.fnameescape(fname)
+
+      if newwin == 1 then
+        vim.cmd("new " .. fname)
+      else
+        vim.cmd("edit " .. fname)
+      end
+    end
+
+    -- Set up leader mappings
+    vim.keymap.set("n", "<leader>os", function()
+      ocaml_switch(0)
+    end, { desc = "OCaml switch implementation/interface", buffer = true })
+    vim.keymap.set("n", "<leader>oS", function()
+      ocaml_switch(1)
+    end, { desc = "OCaml switch impl/interf (new window)", buffer = true })
   end,
 })
