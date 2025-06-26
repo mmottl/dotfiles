@@ -75,3 +75,28 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd({ "TermOpen", "TermClose" }, {
+  group = vim.api.nvim_create_augroup(
+    "terminal_keybindings_override",
+    { clear = true }
+  ),
+  callback = function(ev)
+    if ev.event == "TermOpen" then
+      -- When a terminal is opened, ensure <C-l> is passed through to the terminal.
+      -- This allows the terminal's native clear screen (Ctrl-L) to function.
+      -- Use the usual Vim-derived mapping <C-w><C-l> to move to the left
+      -- window.
+      vim.keymap.set("t", "<C-l>", "<C-l>", {
+        buffer = ev.buf,
+        noremap = false,
+        silent = true,
+        desc = "Pass <C-l> to terminal for clear screen",
+      })
+    elseif ev.event == "TermClose" then
+      -- When a terminal is closed, remove the buffer-local <C-l> mapping
+      -- to restore any global Neovim mappings.
+      vim.keymap.del("t", "<C-l>", { buffer = ev.buf })
+    end
+  end,
+})
