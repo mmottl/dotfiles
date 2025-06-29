@@ -15,9 +15,9 @@ set show-all-if-ambiguous on
 set completion-ignore-case on
 
 # Bind Ctrl-r to reverse-i-search in vi-command mode
-"$if mode=vi"
+$if mode=vi
 "\C-r": history-search-backward
-"$endif"
+$endif
 
 # Clear screen (Ctrl-l)
 "\C-l": clear-screen
