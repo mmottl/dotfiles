@@ -13,7 +13,7 @@ else
   FZF_COMMON_COMMAND="fd --hidden --follow --exclude .git --strip-cwd-prefix"
 fi
 export FZF_COMMON_COMMAND
-export FZF_LSD_LIST="--batch-size 1000 -X ${=MY_LS_CMD} ${=LS_COLOR_LESS} -1 -d"
+export FZF_LSD_LIST="--batch-size 1000 -X ${=MY_LS_CMD} -L ${=LS_COLOR_LESS} -1 -d"
 export FZF_LSD_PREVIEW="${=MY_TREE_CMD} ${=LS_COLOR_LESS} ARG | head -n 1000"
 export FZF_DEFAULT_COMMAND="${=FZF_COMMON_COMMAND} --type f ${=FZF_LSD_LIST}"
 export FZF_DEFAULT_OPTS="\
