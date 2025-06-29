@@ -36,8 +36,8 @@ elif [ "$category" = image ]; then
     exit_status=0
   fi
   exit "$exit_status"
-elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] ||
-  [ "$kind" = vnd.ms-excel ]; then
+elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] \
+  || [ "$kind" = vnd.ms-excel ]; then
   if commands_exist in2csv xsv bat; then
     in2csv "$1" | xsv table | bat -ltsv --color=always
     exit 0
@@ -52,7 +52,7 @@ elif [ "$category" = text ]; then
 fi
 
 if command -v batpipe >/dev/null 2>&1; then
-  batpipe "$1"
+  BATPIPE_DEBUG_PARENT_EXECUTABLE=less BATPIPE=color batpipe "$1"
+else
+  exit 1
 fi
-
-exit 1
