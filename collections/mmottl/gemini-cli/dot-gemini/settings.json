@@ -1,7 +1,7 @@
 {
   "selectedAuthType": "gemini-api-key",
   "theme": "Default",
-  "preferredEditor": "vim",
+  "preferredEditor": "neovim",
   "mcpServers": {
     "context7": {
       "command": "npx",
