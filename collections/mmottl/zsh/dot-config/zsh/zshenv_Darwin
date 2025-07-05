@@ -8,7 +8,7 @@
 #  XDG Runtime Dir Specification  #
 ###################################
 
-export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-$TMPDIR/$(id -u)-runtime-dir}
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}/$(id -u)-runtime-dir}
 
 if [[ ! -d "$XDG_RUNTIME_DIR" ]]; then
   mkdir -p -- "$XDG_RUNTIME_DIR" && chmod 700 "$XDG_RUNTIME_DIR"
