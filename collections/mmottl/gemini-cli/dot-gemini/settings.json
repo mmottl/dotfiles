@@ -3,22 +3,25 @@
   "theme": "Default",
   "preferredEditor": "neovim",
   "mcpServers": {
-    "context7": {
+    "Context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp"]
     },
-    "git": {
+
+    "Git": {
       "command": "uvx",
       "args": ["mcp-server-git"]
     },
-    "github": {
+
+    "GitHub": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-github"],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
       }
     },
-    "nixos": {
+
+    "NixOS": {
       "command": "uvx",
       "args": ["mcp-nixos"]
     }
