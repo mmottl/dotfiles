@@ -61,6 +61,16 @@ return {
               description = "Close Chat",
             },
           },
+          slash_commands = {
+            ["buffer"] = {
+              keymaps = {
+                modes = {
+                  i = "<C-b>",
+                  n = { "<C-b>", "gb" },
+                },
+              },
+            },
+          },
         },
       },
       display = {
