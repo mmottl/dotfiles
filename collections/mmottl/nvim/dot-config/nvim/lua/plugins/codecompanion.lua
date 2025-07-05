@@ -22,6 +22,7 @@ return {
       },
       "j-hui/fidget.nvim",
       "ravitemer/codecompanion-history.nvim",
+      "ravitemer/mcphub.nvim",
     },
 
     cmd = {
@@ -68,6 +69,15 @@ return {
                   i = "<C-b>",
                   n = { "<C-b>", "gb" },
                 },
+              },
+            },
+          },
+          tools = {
+            opts = {
+              default_tools = {
+                -- "files",
+                "full_stack_dev",
+                "mcp",
               },
             },
           },
