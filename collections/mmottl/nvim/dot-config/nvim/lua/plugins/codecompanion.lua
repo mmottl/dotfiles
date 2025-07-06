@@ -76,8 +76,8 @@ return {
             opts = {
               default_tools = {
                 -- "files",
-                "full_stack_dev",
-                "mcp",
+                -- "full_stack_dev",
+                -- "mcp",
               },
             },
           },
