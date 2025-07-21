@@ -9,6 +9,11 @@ return {
       },
     },
     picker = {
+      formatters = {
+        file = {
+          truncate = 60,
+        },
+      },
       sources = {
         explorer = {
           win = {
