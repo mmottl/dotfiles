@@ -94,65 +94,55 @@ _git_root_or_dot() {
 
 # Fuzzy explore with Neovim
 fe() {
-  local dir=""
-  local query=""
-  local fdopts=""
-  local prg result
-  local header='Enter on: file -> open in Neovim | dir: -> enter directory | '
-  header+='alt-c: enter dirname    ctrl-/: change preview window'
+  local dir query fdopts prg result action dirs_only=0
+  local header_all
+  header_all='[ALL]  Enter: open/file'
+  header_all+='| ctrl-d: toggle dirs-only'
+  header_all+='| alt-c: dirname'
+  header_all+='| ctrl-/: preview'
 
-  # Parse arguments
+  local header_dirs
+  header_dirs='[DIRS] Enter: cd'
+  header_dirs+='| ctrl-d: toggle all'
+  header_dirs+='| alt-c: dirname'
+  header_dirs+='| ctrl-/: preview'
+
+  # arg parsing (same as before)…
   while [[ $# -gt 0 ]]; do
-    case "$1" in
-      -q)
-        query="$2"
-        shift 2
-        ;;
-      -fdopts)
-        fdopts="$2"
-        shift 2
-        ;;
-      -*)
-        echo "Error: Unknown flag provided: $1" >&2
-        return 1
-        ;;
-      *)
-        if [[ -n $dir ]]; then
-          printf \
-            "Error: multiple directories or invalid argument: %s\n" "$1" >&2
-          return 1
-        fi
-        dir="$1"
-        shift
-        ;;
+    case $1 in
+      -d) dirs_only=1; shift;;
+      -q) query=$2; shift 2;;
+      -fdopts) fdopts=$2; shift 2;;
+      *) [[ -z $dir ]] && dir=$1 && shift || {
+           echo "Error: multiple dirs/invalid: $1" >&2; return 1; }
     esac
   done
-
-  # Default directory to current if not provided
-  [[ -z $dir ]] && dir="."
+  [[ -z $dir ]] && dir=.
 
   while true; do
-    if ! prg="\
-      $(cd "$dir" && eval "$FZF_COMMON_COMMAND $fdopts . $FZF_LSD_LIST" \
+    local fdopts_cur="$fdopts"
+    (( dirs_only )) && fdopts_cur+=" --type d"
+
+    prg="$(cd "$dir" && eval "$FZF_COMMON_COMMAND $fdopts_cur . $FZF_LSD_LIST" \
       | fzf \
-        --scheme path \
-        --header "$header" \
-        --query "$query" \
+        --scheme=path \
+        --header="$( (( dirs_only )) && echo $header_dirs || echo $header_all )" \
+        --query="$query" \
         --bind 'ctrl-/:change-preview-window(down|hidden|)' \
+        --bind 'ctrl-d:become(printf "action=toggle\nquery=%q\n" {q})' \
         --bind 'enter:become(printf "query=%q\nresult=%q\n" {q} {2})' \
-        --bind "alt-c:become(printf \"result=%q\n\" \$(dirname {2}))" \
-        --preview \
-        "if [[ -d {2} ]]; then ${FZF_LSD_PREVIEW/ARG/{2\}}
-         else less {2..}; fi")"; then
-      return 1
-    fi
+        --bind 'alt-c:become(printf "result=%q\n" $(dirname {2}))' \
+        --preview '[[ -d {2} ]] && eval '"'${FZF_LSD_PREVIEW/ARG/{2\}}'"' || less {2}' )" || return
+
     eval "$prg"
+    if [[ $action == toggle ]]; then
+      action=
+      dirs_only=$((1 - dirs_only))
+      continue
+    fi
     [[ -z $result ]] && return
     result="${dir:+$dir/}$result"
-    [[ -d $result ]] && {
-      z "$result"
-      return
-    }
+    [[ -d $result ]] && { z "$result"; return }
     [[ -f $result ]] && nvim "$result"
   done
 }
