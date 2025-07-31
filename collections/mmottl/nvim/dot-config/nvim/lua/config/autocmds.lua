@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd({
   callback = function()
     -- List of filetypes to ignore
     local ignored_filetypes = {
-      "", -- Empty filetype
+      -- "", -- Empty filetype
       "DiffviewFileHistory",
       "NeogitCommitMessage",
       "gitcommit",
@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd({
 
     if can_autochdir then
       local path = vim.fn.expand("%:p:h")
-      vim.cmd.cd(path)
+      vim.cmd.lcd(path)
     end
   end,
 })
