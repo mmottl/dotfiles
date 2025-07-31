@@ -94,7 +94,7 @@ _git_root_or_dot() {
 
 # Fuzzy explore with Neovim
 fe() {
-  local dir query fdopts prg result action dirs_only=0
+  local dir query fdopts prg result action dirs_only=1
   local header_all
   header_all='[ALL]  Enter: open/file'
   header_all+='| ctrl-d: toggle dirs-only'
@@ -110,7 +110,6 @@ fe() {
   # arg parsing (same as before)…
   while [[ $# -gt 0 ]]; do
     case $1 in
-      -d) dirs_only=1; shift;;
       -q) query=$2; shift 2;;
       -fdopts) fdopts=$2; shift 2;;
       *) [[ -z $dir ]] && dir=$1 && shift || {
