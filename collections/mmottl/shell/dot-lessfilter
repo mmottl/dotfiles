@@ -27,11 +27,11 @@ if [ -d "$1" ]; then
   exit 0
 elif [ "$category" = image ]; then
   exit_status=1
-  if command -v chafa >/dev/null 2>&1; then
+  if commands_exist chafa; then
     chafa "$1"
     exit_status=0
   fi
-  if command -v exiftool >/dev/null 2>&1; then
+  if commands_exist exiftool; then
     exiftool "$1"
     exit_status=0
   fi
@@ -51,7 +51,7 @@ elif [ "$category" = text ]; then
   exit 0
 fi
 
-if command -v batpipe >/dev/null 2>&1; then
+if commands_exist batpipe; then
   BATPIPE_DEBUG_PARENT_EXECUTABLE=less BATPIPE=color batpipe "$1"
 else
   exit 1
