@@ -1,7 +1,7 @@
 # Color scheme
 
-theme = tokyonight_moon
-# theme = catppuccin-mocha
+theme = "Tokyonight Moon"
+# theme = "Catppuccin Mocha"
 # theme = deep
 # background = #000000
 # foreground = #c8c8c8
@@ -14,6 +14,9 @@ fullscreen = true
 
 # Mouse settings
 mouse-hide-while-typing = true
+
+# Shader settings
+# custom-shader = shaders/cursor_blaze_tapered.glsl
 
 # Copy/paste settings
 copy-on-select = clipboard
