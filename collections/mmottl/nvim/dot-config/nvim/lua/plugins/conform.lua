@@ -2,13 +2,17 @@ return {
   "stevearc/conform.nvim",
   opts = {
     formatters_by_ft = {
-      java = { "google-java-format" },
       bzl = { "buildifier" },
+      java = { "google-java-format" },
       markdown = { "dprint" },
+      toml = { "taplo" },
     },
     formatters = {
       shfmt = {
         prepend_args = { "-s", "-i", "2", "-ci", "-bn" },
+      },
+      taplo = {
+        args = { "format", "--stdin-filepath", "$FILENAME", "-" },
       },
     },
     -- log_level = vim.log.levels.DEBUG,
