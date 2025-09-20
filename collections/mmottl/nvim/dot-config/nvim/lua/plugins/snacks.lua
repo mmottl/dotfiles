@@ -1,13 +1,6 @@
 return {
   "folke/snacks.nvim",
   opts = {
-    zen = {
-      show = { statusline = true, tabline = true },
-      toggles = { dim = false },
-      win = {
-        width = 120,
-      },
-    },
     picker = {
       formatters = {
         file = {
@@ -33,6 +26,13 @@ return {
             ["<a-k>"] = { "history_back", mode = { "i", "n" } },
           },
         },
+      },
+    },
+    zen = {
+      show = { statusline = true, tabline = true },
+      toggles = { dim = false },
+      win = {
+        width = 120,
       },
     },
   },
