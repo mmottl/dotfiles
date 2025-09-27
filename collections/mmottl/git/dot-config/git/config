@@ -46,10 +46,6 @@ cmd = ~/.config/git/nvimdiff4.sh "$LOCAL" "$BASE" "$REMOTE" "$MERGED"
 pdiff = "!~/.config/git/pdiff.sh"
 wdiff = diff --color-words
 dft = -c diff.external=difft diff
-
-[remote "origin"]
-fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
-
 [filter "media"]
 clean = git media clean %f
 smudge = git media smudge %f
