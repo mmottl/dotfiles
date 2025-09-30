@@ -201,16 +201,18 @@ if (( $+commands[nvim] )); then
   export VIM_EDITOR=nvim
   alias ai="nvim -c CodeCompanionChat +only +startinsert"
   alias vim="nvim"
+  alias n="nvim"
+  alias vi="nvim"
 else
   export VIM_EDITOR="vim"
 
   vim() {
     VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC' command vim "$@"
   }
-fi
 
-alias n="vim"
-alias vi="vim"
+  alias n="vim"
+  alias vi="vim"
+fi
 
 ############
 #  Unison  #
