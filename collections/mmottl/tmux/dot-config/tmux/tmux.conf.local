@@ -537,6 +537,9 @@ set -g mode-keys vi
 # Sets time in milliseconds during which a key press is considered a repeat
 set-option -g repeat-time 300
 
+# Override default screen clearing, let's not wipe history
+bind -n C-l send-keys C-l
+
 ########################
 #  Session Management  #
 ########################
