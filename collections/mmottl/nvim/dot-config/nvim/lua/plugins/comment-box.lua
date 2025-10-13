@@ -5,5 +5,8 @@ return {
     wk.add({
       { "gcb", "<Cmd>CBccbox<CR>", desc = "Box Title", mode = "n" },
     })
+    wk.add({
+      { "gcl", "<Cmd>CBccline<CR>", desc = "Line Title", mode = "n" },
+    })
   end,
 }
