@@ -94,7 +94,7 @@ _git_root_or_dot() {
 
 # Fuzzy explore with Neovim
 fe() {
-  local dir query fdopts prg result action dirs_only=1
+  local dir query fdopts prg result action dirs_only=0
   local header_all
   header_all='[ALL]  Enter: open/file'
   header_all+='| ctrl-d: toggle dirs-only'
@@ -111,6 +111,7 @@ fe() {
   while [[ $# -gt 0 ]]; do
     case $1 in
       -q) query=$2; shift 2;;
+      -d) dirs_only=1; shift;;
       -fdopts) fdopts=$2; shift 2;;
       *) [[ -z $dir ]] && dir=$1 && shift || {
            echo "Error: multiple dirs/invalid: $1" >&2; return 1; }
@@ -146,9 +147,19 @@ fe() {
   done
 }
 
+# Fuzzy explore directories only
+fed(){
+  fe -d "$@"
+}
+
 # Fuzzy explore from Git root with Neovim
 feg() {
   fe "$(_git_root_or_dot)"
+}
+
+# Fuzzy explore directories only from Git root
+fedg() {
+  fed "$(_git_root_or_dot)"
 }
 
 # Find processes matched with FZF
