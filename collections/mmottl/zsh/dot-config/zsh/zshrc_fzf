@@ -148,7 +148,7 @@ fe() {
 }
 
 # Fuzzy explore directories only
-fed(){
+de(){
   fe -d "$@"
 }
 
@@ -158,8 +158,8 @@ feg() {
 }
 
 # Fuzzy explore directories only from Git root
-fedg() {
-  fed "$(_git_root_or_dot)"
+deg() {
+  de "$(_git_root_or_dot)"
 }
 
 # Find processes matched with FZF
