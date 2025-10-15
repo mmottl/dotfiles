@@ -2,7 +2,13 @@ return {
   "folke/snacks.nvim",
   opts = {
     image = {
-      enabled = true,
+      -- enabled = true,
+      doc = {
+        -- inline = true,
+        -- float = true,
+        max_width = 120,
+        max_height = 90,
+      },
     },
     picker = {
       formatters = {
@@ -37,6 +43,26 @@ return {
       win = {
         width = 120,
       },
+    },
+  },
+  keys = {
+    {
+      "<leader>im",
+      ft = { "tex", "markdown" },
+      function()
+        if vim.b.is_image_hover_active == nil then
+          vim.b.is_image_hover_active = false
+        end
+
+        if vim.b.is_image_hover_active then
+          Snacks.image.doc.hover_close()
+          vim.b.is_image_hover_active = false
+        else
+          Snacks.image.doc.hover()
+          vim.b.is_image_hover_active = true
+        end
+      end,
+      desc = "Preview image under cursor",
     },
   },
 }
