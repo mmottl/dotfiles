@@ -6,8 +6,8 @@ return {
       doc = {
         -- inline = true,
         -- float = true,
-        max_width = 120,
-        max_height = 90,
+        max_width = 240,
+        max_height = 180,
       },
       convert = {
         mermaid = function()
@@ -23,7 +23,7 @@ return {
             theme,
             "-s",
             -- "{scale}",
-            "3", -- 3 seems better
+            "5", -- 5 seems better
           }
         end,
       },
