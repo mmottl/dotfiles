@@ -6,8 +6,8 @@ return {
       doc = {
         -- inline = true,
         -- float = true,
-        max_width = 240,
-        max_height = 180,
+        -- max_width = 80,
+        -- max_height = 40,
       },
       convert = {
         mermaid = function()
