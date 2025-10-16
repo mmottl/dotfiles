@@ -9,6 +9,24 @@ return {
         max_width = 120,
         max_height = 90,
       },
+      convert = {
+        mermaid = function()
+          local theme = vim.o.background == "light" and "neutral" or "dark"
+          return {
+            "-i",
+            "{src}",
+            "-o",
+            "{file}",
+            "-b",
+            "transparent",
+            "-t",
+            theme,
+            "-s",
+            -- "{scale}",
+            "3", -- 3 seems better
+          }
+        end,
+      },
     },
     picker = {
       formatters = {
