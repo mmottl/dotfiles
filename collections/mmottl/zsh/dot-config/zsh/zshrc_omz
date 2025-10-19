@@ -131,7 +131,6 @@ plugins+=(
   safe-paste
   ssh
   ssh-agent
-  thefuck
   # tmux  # Interacts badly with "Oh my tmux!"
   vi-mode
   fancy-ctrl-z
