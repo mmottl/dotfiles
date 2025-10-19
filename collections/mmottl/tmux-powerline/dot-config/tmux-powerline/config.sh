@@ -253,7 +253,7 @@ TMUX_POWERLINE_RIGHT_STATUS_SEGMENTS=(
 		# "tmux_mem_cpu_load 1 0" \
 		#"battery 137 127" \
 		#"rainbarf 234 ${TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR}" \
-		"weather 14 8" \
+		# "weather 14 8" \
 		#"xkb_layout 125 117" \
 		"date_day 4 16" \
 		"date 4 16 ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \

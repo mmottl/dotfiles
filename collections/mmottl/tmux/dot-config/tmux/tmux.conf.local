@@ -600,7 +600,11 @@ set -g @plugin 'fcsonline/tmux-thumbs'
 set -g @plugin 'sainnhe/tmux-fzf'
 set -g @plugin 'thewtex/tmux-mem-cpu-load'
 set -g @plugin 'erikw/tmux-powerline'
-set -g @plugin 'yardnsm/tmux-1password'
+
+# Not installed on my Linux
+if-shell "uname -s | grep -q Darwin" {
+  set -g @plugin 'yardnsm/tmux-1password'
+}
 
 ###############
 #  Alacritty  #
@@ -613,14 +617,17 @@ set -ag terminal-overrides ",alacritty:RGB"
 #  Continuum / Resurrect  #
 ###########################
 
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @resurrect-capture-pane-contents 'on'
-set -g @resurrect-strategy-vim 'session'
+# Currently broken on my Linux
+if-shell "uname -s | grep -q Darwin" {
+  set -g @plugin 'tmux-plugins/tmux-resurrect'
+  set -g @resurrect-capture-pane-contents 'on'
+  set -g @resurrect-strategy-vim 'session'
 
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @continuum-boot 'on'
-set -g @continuum-restore 'on'
-set -g @continuum-save-interval '5'
+  set -g @plugin 'tmux-plugins/tmux-continuum'
+  set -g @continuum-boot 'on'
+  set -g @continuum-restore 'on'
+  set -g @continuum-save-interval '5'
+}
 
 ###########################
 #  Private Configuration  #
