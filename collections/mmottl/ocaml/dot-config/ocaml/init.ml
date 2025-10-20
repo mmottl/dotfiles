@@ -2,11 +2,11 @@
 
 #require "core.top";;
 #require "ppx_jane";;
-#require "pcre";;
+#require "pcre2";;
 #require "lacaml.top";;
 (* #require "gsl";; *)
 
 open Core;;
-open Pcre;;
+open Pcrew;;
 open Lacaml.D;;
 open Lacaml.Io.Toplevel;;

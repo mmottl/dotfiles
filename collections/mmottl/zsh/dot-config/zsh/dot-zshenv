@@ -76,8 +76,8 @@ fi
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 
 if (( $+commands[pkg-config] )); then
-  if pkg-config --exists libpcre; then
-    C_INCLUDE_PATH="$(pkg-config --variable=includedir libpcre):$C_INCLUDE_PATH"
+  if pkg-config --exists libpcre2-8; then
+    C_INCLUDE_PATH="$(pkg-config --variable=includedir libpcre2-8):$C_INCLUDE_PATH"
   fi
   if pkg-config --exists gsl; then
     C_INCLUDE_PATH="$(pkg-config --variable=includedir gsl):$C_INCLUDE_PATH"
