@@ -7,6 +7,6 @@
 (* #require "gsl";; *)
 
 open Core;;
-open Pcrew;;
+open Pcre2;;
 open Lacaml.D;;
 open Lacaml.Io.Toplevel;;
