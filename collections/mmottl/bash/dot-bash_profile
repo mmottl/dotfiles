@@ -1,0 +1,4 @@
+# Fix for Codex to use a better PATH on MacOS
+if [ "$(uname -s)" = "Darwin" ]; then
+  export PATH=/opt/homebrew/bin:$PATH
+fi
