@@ -250,7 +250,7 @@ Use Markdown formatting and include the programming language name at the start o
             -- Number of days after which chats are automatically deleted (0 to disable)
             expiration_days = 0,
             -- Picker interface (auto resolved to a valid picker)
-            picker = "telescope", --- ("telescope", "snacks", "fzf-lua", or "default")
+            picker = "snacks", --- ("telescope", "snacks", "fzf-lua", or "default")
             -- Customize picker keymaps (optional)
             picker_keymaps = {
               rename = { n = "r", i = "<M-r>" },
