@@ -1,7 +1,0 @@
-model: o3-mini
-editor-model: o3-mini
-cache-keepalive-pings: 10
-cache-prompts: true
-dark-mode: true
-"vim": true
-gitignore: false
