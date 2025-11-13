@@ -18,6 +18,7 @@ editor = nvim
 
 [push]
 default = simple
+recurseSubmodules = on-demand
 
 [pull]
 ff = only
@@ -56,5 +57,8 @@ clean = git-lfs clean -- %f
 smudge = git-lfs smudge -- %f
 process = git-lfs filter-process
 required = true
+
+[submodule]
+recurse = true
 
 # vim: set filetype=gitconfig:
