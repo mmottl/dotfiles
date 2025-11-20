@@ -2,3 +2,7 @@
 if [ "$(uname -s)" = "Darwin" ]; then
   export PATH=/opt/homebrew/bin:$PATH
 fi
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/mmottl/.lmstudio/bin"
+# End of LM Studio CLI section
