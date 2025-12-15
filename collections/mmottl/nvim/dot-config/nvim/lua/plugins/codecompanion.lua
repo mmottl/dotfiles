@@ -37,7 +37,7 @@ return {
       -- Configure `adapters` (e.g. tokens) in a private configuration file.
       -- Use GPG and something like:
       --   api_key = "cmd:gpg --batch --quiet --decrypt path-to-encrypted-token.gpg",
-      strategies = {
+      interactions = {
         inline = {
           adapter = "openai",
         },
@@ -97,7 +97,7 @@ return {
 
       prompt_library = {
         ["General Assistant"] = {
-          strategy = "chat",
+          interaction = "chat",
           description = "A general assistant",
           opts = {
             index = 20,
@@ -121,7 +121,7 @@ return {
         },
 
         ["Smart General Assistant"] = {
-          strategy = "chat",
+          interaction = "chat",
           description = "A smart general assistant",
           opts = {
             index = 21,
@@ -145,7 +145,7 @@ return {
         },
 
         ["Fast General Assistant"] = {
-          strategy = "chat",
+          interaction = "chat",
           description = "A fast general assistant",
           opts = {
             index = 22,
@@ -169,11 +169,11 @@ return {
         },
 
         ["Simplify code"] = {
-          strategy = "chat",
+          interaction = "chat",
           description = "Simplify the selected code",
           opts = {
             index = 23,
-            is_default = false,
+            is_preset = false,
             is_slash_cmd = false,
             modes = { "v" },
             short_name = "simplify",
