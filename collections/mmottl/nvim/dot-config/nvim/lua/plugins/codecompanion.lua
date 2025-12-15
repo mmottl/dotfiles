@@ -34,6 +34,11 @@ return {
     },
 
     opts = {
+      -- For debugging
+      -- opts = {
+      --   log_level = "TRACE",
+      -- },
+
       -- Configure `adapters` (e.g. tokens) in a private configuration file.
       -- Use GPG and something like:
       --   api_key = "cmd:gpg --batch --quiet --decrypt path-to-encrypted-token.gpg",
@@ -101,7 +106,7 @@ return {
           description = "A general assistant",
           opts = {
             index = 20,
-            short_name = "assistant",
+            alias = "assistant",
             ignore_system_prompt = true,
             -- Configure accordingly, preferably in a private file, e.g.:
             -- adapter = {
@@ -125,7 +130,7 @@ return {
           description = "A smart general assistant",
           opts = {
             index = 21,
-            short_name = "thinker",
+            alias = "thinker",
             ignore_system_prompt = true,
             -- Configure accordingly, preferably in a private file, e.g.:
             -- adapter = {
@@ -149,7 +154,7 @@ return {
           description = "A fast general assistant",
           opts = {
             index = 22,
-            short_name = "speeder",
+            alias = "speeder",
             ignore_system_prompt = true,
             -- Configure accordingly, preferably in a private file, e.g.:
             -- adapter = {
@@ -173,10 +178,10 @@ return {
           description = "Simplify the selected code",
           opts = {
             index = 23,
+            alias = "simplify",
             is_preset = false,
             is_slash_cmd = false,
             modes = { "v" },
-            short_name = "simplify",
             auto_submit = true,
             user_prompt = false,
             stop_context_insertion = true,
