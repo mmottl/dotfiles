@@ -20,3 +20,6 @@ mouse-hide-while-typing = true
 
 # Copy/paste settings
 copy-on-select = clipboard
+
+# Hide titlebar in windows on MacOS
+macos-titlebar-style = hidden
