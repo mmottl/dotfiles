@@ -1,12 +1,10 @@
 #!/usr/bin/env zsh
 
-#######################################################################
-#                               ZSHENV                                #
-#######################################################################
+#          ╭──────────────────────────────────────────────────────────╮
+#          │                          ZSHENV                          │
+#          ╰──────────────────────────────────────────────────────────╯
 
-###############################
-#  Platform-specific Sources  #
-###############################
+#   ────────────────────── Platform-specific Sources ────────────────────
 
 # Determine platform first
 if [[ -z ${ZSH_UNAME} ]]; then
@@ -18,17 +16,13 @@ if [[ -f "$__zsh_config_dir/zshenv_$ZSH_UNAME" ]]; then
   source "$__zsh_config_dir/zshenv_$ZSH_UNAME"
 fi
 
-##########################
-#  Personal Preferences  #
-##########################
+#   ───────────────────────── Personal Preferences ─────────────────────────
 
 export EDITOR=nvim
 export LANG=en_US.UTF-8
 export COLORFGBG="7;0"
 
-####################
-#  Personal Paths  #
-####################
+#   ──────────────────────────── Personal Paths ────────────────────────────
 
 if [[ -d "$HOME/bin" ]]; then
   path=($HOME/bin $path)
@@ -42,18 +36,14 @@ if [[ -d "$HOME/.local/bin" ]]; then
   path=($HOME/.local/bin $path)
 fi
 
-##########
-#  Tmux  #
-##########
+#   ───────────────────────────────── Tmux ─────────────────────────────────
 
 export TMUX_PLUGIN_MANAGER_PATH="$XDG_DATA_HOME/tmux/plugins"
 if [[ ! -d "$TMUX_PLUGIN_MANAGER_PATH" ]]; then
   mkdir -p -- "TMUX_PLUGIN_MANAGER_PATH"
 fi
 
-###############
-#  Dircolors  #
-###############
+#   ────────────────────────────── Dircolors ────────────────────────────
 
 if (( $+commands[dircolors] )); then
   eval "$(dircolors)"
@@ -68,9 +58,7 @@ if (( $+commands[dircolors] )); then
   unset combined_colors file
 fi
 
-#####################
-#  C-Include Paths  #
-#####################
+#   ─────────────────────────── C-Include Paths ─────────────────────────
 
 # Prevent pkg-config from omitting paths in C_INCLUDE_PATH
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
@@ -90,9 +78,7 @@ fi
 
 export C_INCLUDE_PATH
 
-##########
-#  Rust  #
-##########
+#   ───────────────────────────────── Rust ─────────────────────────────────
 
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
@@ -102,9 +88,7 @@ fi
 
  export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
-###########
-#  OCaml  #
-###########
+#   ──────────────────────────────── OCaml ──────────────────────────────
 
 export OPAMROOT="$XDG_DATA_HOME/opam"
 
@@ -112,21 +96,15 @@ if [[ -f "$OPAMROOT/opam-init/init.zsh" ]]; then
   source "$OPAMROOT/opam-init/init.zsh" >/dev/null 2>/dev/null || true
 fi
 
-#############
-#  Haskell  #
-#############
+#   ─────────────────────────────── Haskell ─────────────────────────────
 
 export GHCUP_USE_XDG_DIRS=true
 
-########
-#  Go  #
-########
+#   ────────────────────────────────── Go ──────────────────────────────────
 
 export GOPATH="$XDG_DATA_HOME/go"
 
-############
-#  Python  #
-############
+#   ──────────────────────────────── Python ────────────────────────────────
 
 export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 
@@ -136,9 +114,7 @@ if (( $+commands[pyenv] )); then
   eval "$(pyenv init - zsh)"
 fi
 
-################
-#  JavaScript  #
-################
+#   ────────────────────────────── JavaScript ──────────────────────────────
 
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
@@ -146,22 +122,16 @@ if [[ -d "$XDG_DATA_HOME/npm/bin" ]]; then
   path=($XDG_DATA_HOME/npm/bin $path)
 fi
 
-##########
-#  Ruby  #
-##########
+#   ───────────────────────────────── Ruby ─────────────────────────────────
 
 export GEM_HOME="$XDG_DATA_HOME/gem"
 export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
 
-############
-#  Gradle  #
-############
+#   ──────────────────────────────── Gradle ────────────────────────────────
 
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
-############
-#  Docker  #
-############
+#   ──────────────────────────────── Docker ────────────────────────────────
 
 # TODO: activate once Docker Desktop supports this
 # export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
@@ -172,34 +142,24 @@ if [[ -d "$DOCKER_CONFIG/bin" ]]; then
   path=($DOCKER_CONFIG/bin $path)
 fi
 
-#############
-#  Ansible  #
-#############
+#   ─────────────────────────────── Ansible ─────────────────────────────
 
 export ANSIBLE_HOME="$XDG_DATA_HOME/ansible"
 export ANSIBLE_HOST_KEY_CHECKING=False
 
-############
-#  Unison  #
-############
+#   ──────────────────────────────── Unison ────────────────────────────────
 
 export UNISON="$XDG_DATA_HOME/unison"
 
-###########
-#  GNUPG  #
-###########
+#   ──────────────────────────────── GNUPG ──────────────────────────────
 
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
-##########
-#  TLDR  #
-##########
+#   ───────────────────────────────── TLDR ─────────────────────────────────
 
 export TLDR_CACHE_DIR="$XDG_CACHE_HOME/tldr"
 
-#########################
-#  Save PATH on Darwin  #
-#########################
+#   ───────────────────────── Save PATH on Darwin ───────────────────────
 
 # Necessary on macOS due to Apple path_helper path manipulation
 if [[ $ZSH_UNAME == "Darwin" ]]; then

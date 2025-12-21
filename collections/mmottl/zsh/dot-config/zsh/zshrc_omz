@@ -1,15 +1,13 @@
 #!/usr/bin/env zsh
 
-#######################################################################
-#                              Oh-My-Zsh                              #
-#######################################################################
+#          ╭──────────────────────────────────────────────────────────╮
+#          │                        Oh-My-Zsh                         │
+#          ╰──────────────────────────────────────────────────────────╯
 
 export ZSH="$ZDOTDIR/oh-my-zsh"
 export ZSH_THEME="powerlevel10k/powerlevel10k"
 
-#############
-#  FZF-Tab  #
-#############
+#   ─────────────────────────────── FZF-Tab ─────────────────────────────
 
 plugins+=(fzf-tab)
 
@@ -88,9 +86,7 @@ zstyle ':fzf-tab:complete:-command-:*' fzf-preview \
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 
-#############
-#  Plugins  #
-#############
+#   ─────────────────────────────── Plugins ─────────────────────────────
 
 # In case we ever use zsh-syntax-highlighting again
 # if [[ -f "$HOME/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh" ]];
@@ -143,16 +139,12 @@ plugins+=(
   # zsh-syntax-highlighting  # Using fast-syntax-highlighting instead
 )
 
-#############
-#  Vi Mode  #
-#############
+#   ─────────────────────────────── Vi Mode ─────────────────────────────
 
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 VI_MODE_SET_CURSOR=true
 
-###############
-#  SSH Agent  #
-###############
+#   ────────────────────────────── SSH Agent ────────────────────────────
 
 zstyle :omz:plugins:ssh-agent agent-forwarding yes
 zstyle :omz:plugins:ssh-agent quiet yes
@@ -163,8 +155,6 @@ COMPLETION_WAITING_DOTS="true"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
 ZSH_HIGHLIGHT_HIGHLIGHTERS+=(brackets pattern cursor)
 
-######################
-#  Source Oh-My-Zsh  #
-######################
+#   ─────────────────────────── Source Oh-My-Zsh ───────────────────────────
 
 source $ZSH/oh-my-zsh.sh

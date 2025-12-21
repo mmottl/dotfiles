@@ -503,13 +503,11 @@ tmux_conf_uninstall_plugins_on_reload=true
 # "$@"
 # # /!\ do not remove the previous line
 
-#######################################################################
-#                             MY SETTINGS                             #
-#######################################################################
+#          ╭──────────────────────────────────────────────────────────╮
+#          │                       MY SETTINGS                        │
+#          ╰──────────────────────────────────────────────────────────╯
 
-######################
-#  General Settings  #
-######################
+#   ─────────────────────────── General Settings ───────────────────────────
 
 # Replace prefix
 set -gu prefix2
@@ -540,9 +538,7 @@ set-option -g repeat-time 300
 # Override default screen clearing, let's not wipe history
 bind -n C-l send-keys C-l
 
-########################
-#  Session Management  #
-########################
+#   ────────────────────────── Session Management ──────────────────────────
 
 # Move to last active session
 bind \' switch-client -l
@@ -551,9 +547,7 @@ bind \' switch-client -l
 bind -r C-j switch-client -n
 bind -r C-k switch-client -p
 
-#######################
-#  Window Management  #
-#######################
+#   ────────────────────────── Window Management ────────────────────────
 
 # When creating new window, retain current working directory of the active pane.
 tmux_conf_new_window_retain_current_path=true
@@ -567,9 +561,7 @@ bind -r [ swap-window -t -1 \; select-window -t -1
 # Swap current window with the next one and follow it
 bind -r ] swap-window -t +1 \; select-window -t +1
 
-########
-#  AI  #
-########
+#   ────────────────────────────────── AI ──────────────────────────────────
 
 # Launch Neovim CodeCompanion with a fast assistant in a horizontally split pane
 bind a split-window -v 'nvim -c "CodeCompanion /assistant" +only +startinsert'
@@ -583,16 +575,12 @@ bind t split-window -v 'nvim -c "CodeCompanion /thinker" +only +startinsert'
 # Launch Neovim CodeCompanion with a smart assistant in a new window
 bind T new-window 'nvim -c "CodeCompanion /thinker" +only +startinsert'
 
-################
-#  Pathpicker  #
-################
+#   ────────────────────────────── Pathpicker ──────────────────────────────
 
 # Reassign Pathpicker
 bind g run "cut -c3- '#{TMUX_CONF}' | sh -s _fpp '#{pane_id}' '#{pane_current_path}'"
 
-#############
-#  Plugins  #
-#############
+#   ─────────────────────────────── Plugins ─────────────────────────────
 
 set -g @plugin 'laktak/extrakto'
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
@@ -606,16 +594,12 @@ if-shell "uname -s | grep -q Darwin" {
   set -g @plugin 'yardnsm/tmux-1password'
 }
 
-###############
-#  Alacritty  #
-###############
+#   ────────────────────────────── Alacritty ────────────────────────────
 
 set  -g default-terminal "tmux-256color"
 set -ag terminal-overrides ",alacritty:RGB"
 
-###########################
-#  Continuum / Resurrect  #
-###########################
+#   ──────────────────────── Continuum / Resurrect ──────────────────────
 
 # Currently broken on my Linux
 if-shell "uname -s | grep -q Darwin" {
@@ -629,9 +613,7 @@ if-shell "uname -s | grep -q Darwin" {
   set -g @continuum-save-interval '5'
 }
 
-###########################
-#  Private Configuration  #
-###########################
+#   ──────────────────────── Private Configuration ──────────────────────
 
 if-shell '[ -f "$XDG_CONFIG_HOME/tmux/tmux.conf.private" ]' \
   'source-file "$XDG_CONFIG_HOME/tmux/tmux.conf.private"'

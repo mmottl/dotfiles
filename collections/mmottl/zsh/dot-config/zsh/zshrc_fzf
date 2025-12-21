@@ -1,10 +1,16 @@
 #!/usr/bin/env zsh
 
-# Tmux integration
+#          ╭──────────────────────────────────────────────────────────╮
+#          │     FZF Configuration, Aliases, and Shell Functions      │
+#          ╰──────────────────────────────────────────────────────────╯
+
+#   ─────────────────────────── Tmux integration ───────────────────────────
+
 [[ -n $TMUX ]] && export FZF_TMUX=1
 export FZF_TMUX_OPTS="--tmux=90%,90%"
 
-# Default options
+#   ─────────────────────────── Default options ─────────────────────────
+
 if [[ -f "$XDG_CONFIG_HOME/git/ignore" ]]; then
   FZF_COMMON_COMMAND="fd --hidden --follow "
   FZF_COMMON_COMMAND+="--ignore-file=$XDG_CONFIG_HOME/git/ignore "
@@ -27,7 +33,8 @@ export FZF_DEFAULT_OPTS="\
   --bind 'ctrl-y:execute-silent(echo -n {+} | pbcopy)' \
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
-# Catppuccin
+#   ────────────────────────────── Catppuccin ──────────────────────────────
+
 FZF_DEFAULT_OPTS+=" \
   --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
   --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
@@ -35,7 +42,8 @@ FZF_DEFAULT_OPTS+=" \
   --color=selected-bg:#45475a \
   --multi"
 
-# ALT-C options
+#   ──────────────────────────── ALT-C options ──────────────────────────
+
 export FZF_ALT_C_COMMAND="${=FZF_COMMON_COMMAND} --type d ${FZF_LSD_LIST}"
 export FZF_ALT_C_OPTS="--preview '${FZF_LSD_PREVIEW/ARG/{2\}}'"
 
@@ -45,34 +53,40 @@ export FZF_CTRL_T_OPTS="\
   --preview 'if [[ -d {2} ]]; then ${FZF_LSD_PREVIEW/ARG/{2\}}
              else less {2}; fi'"
 
-# CTRL-R completion
+#   ────────────────────────── CTRL-R completion ────────────────────────
+
 export FZF_CTRL_R_OPTS="\
   --preview 'echo {}' --preview-window up:3:hidden:wrap --header-first \
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
   --color header:bright-green:italic:underline \
   --header 'CTRL-y copies command into clipboard'"
 
-# '**' completion
+#   ─────────────────────────── '**' completion ─────────────────────────
+
 export FZF_COMPLETION_OPTS="\
   $FZF_DEFAULT_OPTS
   --preview 'if [[ -d {} ]]; then ${FZF_LSD_PREVIEW/ARG/{\}}
              else if [[ -f {} ]]; then less {}; fi; fi'"
 
-# Directory completion
+#   ───────────────────────── Directory completion ─────────────────────────
+
 export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree z zi"
 
-# Path completion
+#   ─────────────────────────── Path completion ─────────────────────────
+
 _fzf_compgen_path() {
   echo "$1"
   ${=FZF_COMMON_COMMAND} --color=always "$1"
 }
 
-# Directory completion
+#   ───────────────────────── Directory completion ─────────────────────────
+
 _fzf_compgen_dir() {
   ${=FZF_COMMON_COMMAND} --type d --color=always "$1"
 }
 
-# Command expansion
+#   ────────────────────────── Command expansion ────────────────────────
+
 _fzf_comprun() {
   local command=$1
   shift
@@ -92,7 +106,8 @@ _git_root_or_dot() {
   git rev-parse --show-toplevel 2>/dev/null || echo .
 }
 
-# Fuzzy explore with Neovim
+#   ────────────────────── Fuzzy explore with Neovim ────────────────────
+
 fe() {
   local dir query fdopts prg result action dirs_only=0
   local header_all
@@ -147,22 +162,26 @@ fe() {
   done
 }
 
-# Fuzzy explore directories only
+#   ──────────────────── Fuzzy explore directories only ────────────────────
+
 de(){
   fe -d "$@"
 }
 
-# Fuzzy explore from Git root with Neovim
+#   ─────────────── Fuzzy explore from Git root with Neovim ─────────────
+
 feg() {
   fe "$(_git_root_or_dot)"
 }
 
-# Fuzzy explore directories only from Git root
+#   ───────────── Fuzzy explore directories only from Git root ─────────────
+
 deg() {
   de "$(_git_root_or_dot)"
 }
 
-# Find processes matched with FZF
+#   ─────────────────── Find processes matched with FZF ─────────────────
+
 fp() {
   local -r cmd="echo; ps -ef"
   : | fzf -m ${=FZF_TMUX_OPTS} --header-first --header 'CTRL-R reloads' \
@@ -170,7 +189,8 @@ fp() {
     --bind "start:reload:$cmd" --bind "ctrl-r:reload:$cmd"
 }
 
-# fdr - find directory in reverse / cd to selected parent directory
+#   ── fdr - find directory in reverse / cd to selected parent directory ──
+
 fdr() {
   local dirs=()
   get_parent_dirs() {
@@ -195,7 +215,7 @@ fdr() {
   z "$dir" || return
 }
 
-# Git completion with FZF
+#   ─────────────────────── Git completion with FZF ─────────────────────
 
 # Source Git completion help for FZF
 if [[ -f "$XDG_CONFIG_HOME/zsh/fzf-git.sh" ]]; then
@@ -210,7 +230,8 @@ _fzf_git_fzf() {
     --ansi --bind='ctrl-/:change-preview-window(down,66%,border-top|hidden|)'
 }
 
-# FZF options for Zoxide
+#   ──────────────────────── FZF options for Zoxide ────────────────────────
+
 export _ZO_FZF_OPTS="\
   --height=90% --no-sort --reverse --no-multi --exit-0 --select-1 \
   --scheme=path --preview-window 'right,50%,border-left' \
@@ -223,7 +244,7 @@ export _ZO_FZF_OPTS="\
   --bind 'ctrl-f:half-page-down,ctrl-b:half-page-up' \
   --bind 'ctrl-y:execute-silent(echo -n {+} | pbcopy)'"
 
-# Reconfigure FZF functions so we can use lsd (cutting out icons)
+#   ──────── Reconfigure FZF functions so we can use lsd (no icons) ────────
 
 # CTRL-T - Paste the selected file path(s) into the command line
 __fzf_select() {

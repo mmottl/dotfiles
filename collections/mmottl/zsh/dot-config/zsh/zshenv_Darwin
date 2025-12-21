@@ -1,12 +1,10 @@
 #!/usr/bin/env zsh
 
-#######################################################################
-#                            ZSHENV DARWIN                            #
-#######################################################################
+#          ╭──────────────────────────────────────────────────────────╮
+#          │                      ZSHENV DARWIN                       │
+#          ╰──────────────────────────────────────────────────────────╯
 
-###################################
-#  XDG Runtime Dir Specification  #
-###################################
+#   ──────────────────── XDG Runtime Dir Specification ──────────────────
 
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}/$(id -u)-runtime-dir}
 
@@ -14,9 +12,7 @@ if [[ ! -d "$XDG_RUNTIME_DIR" ]]; then
   mkdir -p -- "$XDG_RUNTIME_DIR" && chmod 700 "$XDG_RUNTIME_DIR"
 fi
 
-######################
-#  Helper Functions  #
-######################
+#   ─────────────────────────── Helper Functions ───────────────────────────
 
 path_append() {
   local var_name=$1
@@ -30,16 +26,12 @@ path_append() {
   fi
 }
 
-#####################
-#  System Man Path  #
-#####################
+#   ─────────────────────────── System Man Path ─────────────────────────
 
 path_append MANPATH "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/\
 usr/share/man"
 
-##############
-#  Homebrew  #
-##############
+#   ─────────────────────────────── Homebrew ───────────────────────────────
 
 # Homebrew environment
 if [[ -x "/opt/homebrew/bin/brew" ]]; then
@@ -79,17 +71,13 @@ path_append MANPATH "/opt/homebrew/opt/util-linux/include"
 path_append PKG_CONFIG_PATH "/opt/homebrew/opt/sqlite/lib/pkgconfig"
 path_append PKG_CONFIG_PATH "/opt/homebrew/opt/libpq/lib/pkgconfig"
 
-##############
-#  OrbStack  #
-##############
+#   ─────────────────────────────── OrbStack ───────────────────────────────
 
 if [[ -f "$HOME/.orbstack/shell/init.zsh" ]]; then
   source "$HOME/.orbstack/shell/init.zsh" 2>/dev/null || :
 fi
 
-###############
-#  Puppeteer  #
-###############
+#   ────────────────────────────── Puppeteer ────────────────────────────
 
 # Currently needed for Mermaid to work
 export PUPPETEER_EXECUTABLE_PATH=\
