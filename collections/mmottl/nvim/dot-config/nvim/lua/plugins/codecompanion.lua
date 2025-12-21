@@ -49,10 +49,10 @@ return {
         chat = {
           adapter = "openai",
           roles = {
+            user = "  Me",
             llm = function(adapter)
               return "  CodeCompanion (" .. adapter.formatted_name .. ")"
             end,
-            user = "  Me",
           },
           keymaps = {
             close = {
@@ -65,16 +65,6 @@ return {
               index = 4,
               callback = "keymaps.close",
               description = "Close Chat",
-            },
-          },
-          slash_commands = {
-            ["buffer"] = {
-              keymaps = {
-                modes = {
-                  i = "<C-b>",
-                  n = { "<C-b>", "gb" },
-                },
-              },
             },
           },
           tools = {
