@@ -397,10 +397,10 @@ fi
 
 if (( $+commands[tmux] )); then
   tma() {
-    if tmux ls 2>/dev/null; then
-      tmux attach
+    if tmux -L personal ls 2>/dev/null; then
+      tmux -L personal attach
     else
-      tmux new
+      tmux -L personal new
     fi
   }
 fi
