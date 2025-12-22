@@ -1,14 +1,3 @@
--- Prompt used for the general AI assistant
-local assistant_system_prompt = "You are a versatile AI assistant, always ready to "
-  .. "help. Provide responses that are accurate, helpful, and also concise."
-  .. " Assist users with tasks like writing, summarization, and brainstorming."
-  .. " You can also help with coding and learning by using your language capabilities."
-  .. " Prioritize factual accuracy, and clearly state when you lack needed information."
-  .. " Also state clearly when you cannot fulfill a specific user request."
-  .. " Avoid any speculation or generating content that is potentially false."
-  .. " Adapt your tone and writing style to be helpful, meeting user needs."
-  .. " Always be informative for the user's specific contextual needs."
-
 return {
   {
     "olimorris/codecompanion.nvim",
@@ -20,7 +9,7 @@ return {
         "MeanderingProgrammer/render-markdown.nvim",
         ft = { "markdown", "codecompanion" },
       },
-      "j-hui/fidget.nvim",
+      "lalitmee/codecompanion-spinners.nvim",
       "ravitemer/codecompanion-history.nvim",
       "ravitemer/mcphub.nvim",
     },
@@ -46,6 +35,7 @@ return {
         inline = {
           adapter = "openai",
         },
+
         chat = {
           adapter = "openai",
           roles = {
@@ -54,6 +44,7 @@ return {
               return "  CodeCompanion (" .. adapter.formatted_name .. ")"
             end,
           },
+
           keymaps = {
             close = {
               modes = {
@@ -67,6 +58,7 @@ return {
               description = "Close Chat",
             },
           },
+
           tools = {
             opts = {
               default_tools = {
@@ -78,6 +70,7 @@ return {
           },
         },
       },
+
       display = {
         chat = {
           -- show_settings = true,
@@ -86,148 +79,6 @@ return {
             position = "bottom",
             height = 0.45,
             width = 0.8,
-          },
-        },
-      },
-
-      prompt_library = {
-        ["General Assistant"] = {
-          interaction = "chat",
-          description = "A general assistant",
-          opts = {
-            index = 20,
-            alias = "assistant",
-            ignore_system_prompt = true,
-            -- Configure accordingly, preferably in a private file, e.g.:
-            -- adapter = {
-            --   name = "gemini_flash",
-            -- },
-          },
-          prompts = {
-            {
-              role = "system",
-              content = assistant_system_prompt,
-            },
-            {
-              role = "user",
-              content = " ",
-            },
-          },
-        },
-
-        ["Smart General Assistant"] = {
-          interaction = "chat",
-          description = "A smart general assistant",
-          opts = {
-            index = 21,
-            alias = "thinker",
-            ignore_system_prompt = true,
-            -- Configure accordingly, preferably in a private file, e.g.:
-            -- adapter = {
-            --   name = "gemini_pro",
-            -- },
-          },
-          prompts = {
-            {
-              role = "system",
-              content = assistant_system_prompt,
-            },
-            {
-              role = "user",
-              content = " ",
-            },
-          },
-        },
-
-        ["Fast General Assistant"] = {
-          interaction = "chat",
-          description = "A fast general assistant",
-          opts = {
-            index = 22,
-            alias = "speeder",
-            ignore_system_prompt = true,
-            -- Configure accordingly, preferably in a private file, e.g.:
-            -- adapter = {
-            --   name = "gemini_flash_lite",
-            -- },
-          },
-          prompts = {
-            {
-              role = "system",
-              content = assistant_system_prompt,
-            },
-            {
-              role = "user",
-              content = " ",
-            },
-          },
-        },
-
-        ["Simplify code"] = {
-          interaction = "chat",
-          description = "Simplify the selected code",
-          opts = {
-            index = 23,
-            alias = "simplify",
-            is_preset = false,
-            is_slash_cmd = false,
-            modes = { "v" },
-            auto_submit = true,
-            user_prompt = false,
-            stop_context_insertion = true,
-          },
-          prompts = {
-            {
-              role = "system",
-              content = [[When asked to simplify code, follow these steps:
-
-1.  **Analyze the Code**: Understand the purpose and logic of the provided code snippet.
-2.  **Identify Simplification Opportunities**: Look for complex control flow (e.g., nested loops, deep conditionals), manual implementations of standard algorithms/functions, or verbose code that could be replaced by higher-level abstractions or standard library features.
-3.  **Plan the Simplification**: Describe the plan for simplifying the code in pseudocode, detailing each step. Focus on using standard functions/operators and reducing control flow complexity.
-4.  **Implement the Simplification**: Write the simplified code in a single code block.
-5.  **Explain the Simplification**: Briefly explain the changes made, why they simplify the code, and confirm functional equivalence.
-
-Ensure the simplified code:
-
--   Is functionally equivalent to the original code.
--   Uses standard library functions, operators, or simpler language constructs where possible.
--   Leverages higher-level abstractions (e.g., map, filter, list comprehensions) if they improve clarity without sacrificing performance significantly.
--   Reduces unnecessary control flow statements (e.g., if/else, loops) where appropriate.
--   Maintains or improves readability.
--   Does not increase the computational complexity of the algorithm. Avoid changes that would make the code noticeably slower for typical inputs.
--   Is formatted correctly.
-
-Use Markdown formatting and include the programming language name at the start of the code block.]],
-              opts = {
-                visible = false,
-              },
-            },
-            {
-              role = "user",
-              content = function(context)
-                local code = require("codecompanion.helpers.actions").get_code(
-                  context.start_line,
-                  context.end_line
-                )
-                local fmt = string.format
-
-                return fmt(
-                  [[Please simplify this code from buffer %d:
-
-```%s
-%s
-```
-
-]],
-                  context.bufnr,
-                  context.filetype,
-                  code
-                )
-              end,
-              opts = {
-                contains_code = true,
-              },
-            },
           },
         },
       },
@@ -276,6 +127,7 @@ Use Markdown formatting and include the programming language name at the start o
             chat_filter = nil, -- function(chat_data) return boolean end
           },
         },
+
         mcphub = {
           callback = "mcphub.extensions.codecompanion",
           opts = {
@@ -284,12 +136,16 @@ Use Markdown formatting and include the programming language name at the start o
             make_slash_commands = true, -- Add prompts as /slash commands
           },
         },
+
+        spinner = {
+          -- enabled = true, -- This is the default
+          opts = {
+            -- Your spinner configuration goes here
+            style = "snacks",
+          },
+        },
       },
     },
-
-    init = function()
-      require("plugins.codecompanion.fidget-spinner"):init()
-    end,
 
     keys = {
       { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
@@ -334,6 +190,14 @@ Use Markdown formatting and include the programming language name at the start o
         desc = "Inline Prompt (CodeCompanion)",
       },
       {
+        "<leader>ac",
+        ":CodeCompanionCmd ",
+        mode = { "n", "v" },
+        noremap = true,
+        silent = true,
+        desc = "Command Mode (CodeCompanion)",
+      },
+      {
         "<leader>as",
         ":CodeCompanion /simplify<cr>",
         mode = { "n", "v" },
@@ -366,19 +230,5 @@ Use Markdown formatting and include the programming language name at the start o
         desc = "Fix code (CodeCompanion)",
       },
     },
-  },
-
-  -- Edgy integration
-  {
-    "folke/edgy.nvim",
-    optional = true,
-    opts = function(_, opts)
-      opts.right = opts.right or {}
-      table.insert(opts.right, {
-        ft = "codecompanion",
-        title = "CodeCompanion Chat",
-        size = { width = 50 },
-      })
-    end,
   },
 }
