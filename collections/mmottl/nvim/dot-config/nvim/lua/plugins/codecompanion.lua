@@ -38,11 +38,27 @@ return {
 
         chat = {
           adapter = "openai",
+
           roles = {
             user = "  Me",
             llm = function(adapter)
               return "  CodeCompanion (" .. adapter.formatted_name .. ")"
             end,
+
+            opts = {
+              -- Enable background interactions generally
+              enabled = true,
+            },
+          },
+
+          callbacks = {
+            ["on_ready"] = {
+              actions = {
+                "interactions.background.builtin.chat_make_title",
+              },
+              -- Enable "on_ready" callback which contains the title generation action
+              enabled = true,
+            },
           },
 
           keymaps = {
@@ -196,14 +212,6 @@ return {
         noremap = true,
         silent = true,
         desc = "Command Mode (CodeCompanion)",
-      },
-      {
-        "<leader>as",
-        ":CodeCompanion /simplify<cr>",
-        mode = { "n", "v" },
-        noremap = true,
-        silent = true,
-        desc = "Simplify code (CodeCompanion)",
       },
       {
         "<leader>ae",

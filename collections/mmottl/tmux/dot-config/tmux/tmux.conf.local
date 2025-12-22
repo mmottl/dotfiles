@@ -564,16 +564,16 @@ bind -r ] swap-window -t +1 \; select-window -t +1
 #   ────────────────────────────────── AI ──────────────────────────────────
 
 # Launch Neovim CodeCompanion with a fast assistant in a horizontally split pane
-bind a split-window -v 'nvim -c "CodeCompanion /assistant" +only +startinsert'
+bind a split-window -v 'nvim -c "CodeCompanion /general" +only +startinsert'
 
 # Launch Neovim CodeCompanion with a fast assistant in a new window
-bind A new-window 'nvim -c "CodeCompanion /assistant" +only +startinsert'
+bind A new-window 'nvim -c "CodeCompanion /general" +only +startinsert'
 
 # Launch Neovim CodeCompanion with a smart assistant in a horizontally split pane
-bind t split-window -v 'nvim -c "CodeCompanion /thinker" +only +startinsert'
+bind t split-window -v 'nvim -c "CodeCompanion /smart" +only +startinsert'
 
 # Launch Neovim CodeCompanion with a smart assistant in a new window
-bind T new-window 'nvim -c "CodeCompanion /thinker" +only +startinsert'
+bind T new-window 'nvim -c "CodeCompanion /smart" +only +startinsert'
 
 #   ────────────────────────────── Pathpicker ──────────────────────────────
 
