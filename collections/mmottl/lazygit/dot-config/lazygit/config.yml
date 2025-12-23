@@ -2,6 +2,9 @@ git:
   pagers:
     - colorArg: always
       pager: >-
-        delta --features=mantis-shrimp --paging=never --line-numbers --hyperlinks \
-
-          --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+        delta
+        --features=mantis-shrimp
+        --paging=never
+        --line-numbers
+        --hyperlinks
+        --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
