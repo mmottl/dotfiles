@@ -175,8 +175,16 @@ return {
       },
       {
         "<leader>an",
-        ":CodeCompanionChat<cr>",
-        mode = { "n", "v" },
+        ":CodeCompanionChat<cr>i",
+        mode = { "n" },
+        noremap = true,
+        silent = true,
+        desc = "New Chat (CodeCompanion)",
+      },
+      {
+        "<leader>an",
+        ":CodeCompanionChat<cr>o<cr>",
+        mode = { "v" },
         noremap = true,
         silent = true,
         desc = "New Chat (CodeCompanion)",
@@ -216,7 +224,7 @@ return {
       {
         "<leader>ae",
         ":CodeCompanion /explain<cr>",
-        mode = { "n", "v" },
+        mode = { "v" },
         noremap = true,
         silent = true,
         desc = "Explain code (CodeCompanion)",
@@ -232,7 +240,7 @@ return {
       {
         "<leader>af",
         ":CodeCompanion /fix<cr>",
-        mode = { "n", "v" },
+        mode = { "v" },
         noremap = true,
         silent = true,
         desc = "Fix code (CodeCompanion)",
