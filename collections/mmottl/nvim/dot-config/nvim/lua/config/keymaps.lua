@@ -1,4 +1,4 @@
--- Keymaps are automatically loaded on the VeryLazy event
+-- Keymaps are automatically loaded on the `VeryLazy` event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
@@ -7,7 +7,7 @@ vim.keymap.set("n", "<Esc>", function()
   -- Clear search highlights
   vim.cmd.nohlsearch()
 
-  -- Clear Codeium completions if available
+  -- Clear `Codeium` completions if available
   local has_codeium, codeium = pcall(require, "codeium")
   if has_codeium and codeium.clear_completions then
     codeium.clear_completions()
@@ -16,3 +16,6 @@ end)
 
 -- Duplicate a line and comment out the first line
 vim.keymap.set("n", "yc", "yygccp", { remap = true })
+
+-- Map F1 to `Esc` in all modes
+vim.keymap.set({ "n", "i", "v" }, "<F1>", "<ESC>", { silent = true })
