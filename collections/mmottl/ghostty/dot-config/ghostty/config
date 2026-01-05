@@ -7,7 +7,7 @@ theme = "Tokyonight Moon"
 # foreground = #c8c8c8
 
 # Font settings
-font-size = 14
+font-size = 15
 
 # Window settings
 fullscreen = true
