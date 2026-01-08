@@ -44,9 +44,10 @@ prompt = false
 cmd = ~/.config/git/nvimdiff4.sh "$LOCAL" "$BASE" "$REMOTE" "$MERGED"
 
 [alias]
-pdiff = "!~/.config/git/pdiff.sh"
+pdiff = -c diff.external=patdiff-git-wrapper diff
 wdiff = diff --color-words
 dft = -c diff.external=difft diff
+
 [filter "media"]
 clean = git media clean %f
 smudge = git media smudge %f
