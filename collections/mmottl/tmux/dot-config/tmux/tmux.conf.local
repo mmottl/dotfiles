@@ -538,6 +538,14 @@ set-option -g repeat-time 300
 # Override default screen clearing, let's not wipe history
 bind -n C-l send-keys C-l
 
+# Create useful session windows
+bind-key -n F10 \
+    new-window -n 'Doc' \; \
+    new-window -n 'AI' \; \
+    new-window -n 'Edit' \; \
+    new-window -n 'Exec' \; \
+    select-window -t 'Doc'
+
 #   ────────────────────────── Session Management ──────────────────────────
 
 # Move to last active session
