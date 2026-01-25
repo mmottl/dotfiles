@@ -5,7 +5,9 @@ return {
       bzl = { "buildifier" },
       java = { "google-java-format" },
       markdown = { "dprint" },
+      rust = { "rustfmt" },
       toml = { "taplo" },
+      xml = { "prettier" },
     },
     formatters = {
       shfmt = {
