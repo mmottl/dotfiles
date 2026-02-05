@@ -323,6 +323,12 @@ if (( $+commands[cargo] )); then
   }
 fi
 
+#   ──────────────────────────────── Python ────────────────────────────────
+
+if (( $+commands[pyenv] )); then
+  eval "$(pyenv init - zsh)"
+fi
+
 #   ────────────────────────────── 1Password ────────────────────────────
 
 if [[ $ZSH_UNAME == "Darwin" && -f $XDG_CONFIG_HOME/op/plugins.sh ]]; then
