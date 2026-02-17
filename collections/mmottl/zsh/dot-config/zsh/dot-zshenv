@@ -127,6 +127,11 @@ export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
 
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
+#   ──────────────────────────────── LaTeX ──────────────────────────────
+
+export TEXMFCACHE="$XDG_CACHE_HOME/texmf-cache"
+export TEXMFVAR="$XDG_CACHE_HOME/texmf-var"
+
 #   ──────────────────────────────── Docker ────────────────────────────────
 
 # TODO: activate once Docker Desktop supports this
