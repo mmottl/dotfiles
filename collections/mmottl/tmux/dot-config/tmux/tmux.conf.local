@@ -540,11 +540,10 @@ bind -n C-l send-keys C-l
 
 # Create useful session windows
 bind-key -n F10 \
-    new-window -n 'Doc' \; \
     new-window -n 'AI' \; \
     new-window -n 'Edit' \; \
     new-window -n 'Exec' \; \
-    select-window -t 'Doc'
+    select-window -t 'Exec'
 
 #   ────────────────────────── Session Management ──────────────────────────
 
