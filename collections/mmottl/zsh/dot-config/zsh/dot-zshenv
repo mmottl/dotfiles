@@ -129,8 +129,12 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
 #   ──────────────────────────────── LaTeX ──────────────────────────────
 
-export TEXMFCACHE="$XDG_CACHE_HOME/texmf-cache"
 export TEXMFVAR="$XDG_CACHE_HOME/texmf-var"
+export TEXMFCACHE="$TEXMFVAR/luatex-cache"
+
+if [[ ! -d "$TEXMFCACHE" ]]; then
+    mkdir -p "$TEXMFCACHE"
+fi
 
 #   ──────────────────────────────── Docker ────────────────────────────────
 
