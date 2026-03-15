@@ -1,0 +1,56 @@
+#   ───────────────────────────────── Zoom ─────────────────────────────────
+
+[[mgr.prepend_keymap]]
+on = "T"
+run = "plugin toggle-pane max-preview"
+desc = "Maximize or restore the preview pane"
+
+#   ───────────────────────────── Smart Filter ─────────────────────────────
+
+[[mgr.prepend_keymap]]
+on = "F"
+run = "plugin smart-filter"
+desc = "Smart filter"
+
+#   ───────────────────────────── Cd Git Root ───────────────────────────
+
+[[mgr.prepend_keymap]]
+on = ["g", "r"]
+run = "plugin cd-git-root"
+desc = "Go to git repo root"
+
+#   ──────────────────────────────── DuckDB ────────────────────────────────
+
+[[mgr.prepend_keymap]]
+on = "<C-h>"
+run = "plugin duckdb -1"
+desc = "Scroll one column to the left"
+
+[[mgr.prepend_keymap]]
+on = "<C-l>"
+run = "plugin duckdb +1"
+desc = "Scroll one column to the right"
+
+[[mgr.prepend_keymap]]
+on = ["g", "o"]
+run = "plugin duckdb -open"
+desc = "open with duckdb"
+
+[[mgr.prepend_keymap]]
+on = ["g", "u"]
+run = "plugin duckdb -ui"
+desc = "open with duckdb ui"
+
+#   ─────────────────────────────── Easyjump ───────────────────────────────
+
+[[mgr.prepend_keymap]]
+on = ["i"]
+run = "plugin easyjump"
+desc = "easyjump"
+
+#   ─────────────────────────────── Lazygit ─────────────────────────────
+
+[[mgr.prepend_keymap]]
+on = ["g", "i"]
+run = "plugin lazygit"
+desc = "run lazygit"
