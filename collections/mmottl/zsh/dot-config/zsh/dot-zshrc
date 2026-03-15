@@ -252,6 +252,10 @@ fi
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  FZF_DEFAULT_COMMAND="\
+    fd --hidden --follow --ignore-file=/Users/mmottl/.config/git/ignore \
+      --exclude .git --strip-cwd-prefix --type f --batch-size 1000 \
+      -X lsd -v -L --color=always -1 -d"
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
 		builtin cd -- "$cwd"
