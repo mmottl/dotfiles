@@ -7,8 +7,11 @@ path = ~/.config/git/delta.gitconfig
 ui = true
 status = auto
 
-[url "ssh://git@github.com/"]
-insteadOf = https://github.com/
+[url "ssh://git@github.com/mmottl/"]
+insteadOf = https://github.com/mmottl/
+
+[url "ssh://git@github.com/onechronos/"]
+insteadOf = https://github.com/onechronos/
 
 [init]
 defaultBranch = main
