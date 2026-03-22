@@ -30,8 +30,7 @@ elif [ "$category" = image ]; then
   if commands_exist chafa; then
     chafa "$1"
     exit_status=0
-  fi
-  if commands_exist exiftool; then
+  elif commands_exist exiftool; then
     exiftool "$1"
     exit_status=0
   fi
