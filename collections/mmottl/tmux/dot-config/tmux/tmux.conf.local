@@ -601,10 +601,12 @@ if-shell "uname -s | grep -q Darwin" {
   set -g @plugin 'yardnsm/tmux-1password'
 }
 
-#   ────────────────────────────── Alacritty ────────────────────────────
+#   ─────────────────────────────── Terminal ───────────────────────────────
 
-set  -g default-terminal "tmux-256color"
+set -g default-terminal "tmux-256color"
+set -as terminal-features ',xterm-ghostty:sixel'
 set -ag terminal-overrides ",alacritty:RGB"
+set -g allow-passthrough on
 
 #   ──────────────────────── Continuum / Resurrect ──────────────────────
 
