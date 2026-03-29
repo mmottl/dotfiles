@@ -1,5 +1,6 @@
-[core]
-pager = diffnav
+[pager]
+diff = diffnav
+show = diffnav
 
 [interactive]
 diffFilter = delta --color-only --features=interactive
