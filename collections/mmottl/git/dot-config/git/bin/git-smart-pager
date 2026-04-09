@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+tmp="$(mktemp "${TMPDIR:-/tmp}/git-smart-pager.XXXXXX")" || exit 1
+trap 'rm -f "$tmp"' EXIT
+
+cat >"$tmp"
+
+if awk '
+{
+  gsub(/\033\[[0-9;]*[[:alpha:]]/, "")
+}
+/^diff --git / {
+  found = 1
+  exit
+}
+END {
+  exit !found
+}
+' "$tmp"; then
+  diffnav <"$tmp"
+else
+  delta <"$tmp"
+fi

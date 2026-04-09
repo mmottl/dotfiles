@@ -1,6 +1,9 @@
+[core]
+pager = delta
+
 [pager]
-diff = diffnav
-show = diffnav
+diff = /Users/mmottl/.config/git/bin/git-smart-pager
+show = /Users/mmottl/.config/git/bin/git-smart-pager
 
 [interactive]
 diffFilter = delta --color-only --features=interactive
