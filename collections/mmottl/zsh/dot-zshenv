@@ -4,6 +4,13 @@
 #          │                          ZSHENV                          │
 #          ╰──────────────────────────────────────────────────────────╯
 
+#   ─────────────────── Ensure USER Environment Variable ───────────────────
+
+if [[ -z ${USER-} ]]; then
+  USER=${USERNAME:-${LOGNAME:-$(id -un 2>/dev/null || print unknown)}}
+  export USER
+fi
+
 #   ─────────────────── XDG Base Directory Specification ───────────────────
 
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
