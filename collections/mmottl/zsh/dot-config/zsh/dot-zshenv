@@ -170,3 +170,9 @@ export TLDR_CACHE_DIR="$XDG_CACHE_HOME/tldr"
 if [[ $ZSH_UNAME == "Darwin" ]]; then
   export ORIGINAL_PATH=$PATH
 fi
+
+#   ─────────────────────────────── Private ─────────────────────────────
+
+if [[ -f "$__zsh_config_dir/zshenv_private" ]]; then
+  source "$__zsh_config_dir/zshenv_private"
+fi
