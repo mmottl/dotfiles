@@ -4,32 +4,13 @@
 #          │                       ZSHRC DARWIN                       │
 #          ╰──────────────────────────────────────────────────────────╯
 
-#   ─────────────────────────────── Homebrew ───────────────────────────────
+#   ──────────────────────────────── Nix ─────────────────────────────────
 
-if [[ -x "/opt/homebrew/bin/brew" ]]; then
-  BREW_PREFIX=$(/opt/homebrew/bin/brew --prefix)
-  [[ -d "$BREW_PREFIX/share/zsh/site-functions" ]] &&
-    fpath+=("$BREW_PREFIX/share/zsh/site-functions")
-  [[ -d "$BREW_PREFIX/share/zsh-completions" ]] &&
-    fpath+=("$BREW_PREFIX/share/zsh-completions")
-
-#   ───────────────────────────────── LLVM ─────────────────────────────────
-
-  if [[ ${ENABLE_HOMEBREW_LLVM:-0} == 1 ]]; then
-    llvm_bin="$BREW_PREFIX/opt/llvm/bin"
-    if [[ -d "$llvm_bin" ]]; then
-      path=("$llvm_bin" $path)
-    fi
-    unset llvm_bin
-  fi
-  unset BREW_PREFIX
-fi
-
-typeset -U fpath path
+[[ -d /run/current-system/sw/share/zsh/site-functions ]] &&
+  fpath+=("/run/current-system/sw/share/zsh/site-functions")
 
 #   ────────────────────────────── Oh-My-Zsh ────────────────────────────
 
 plugins+=(
   1password
-  brew
 )

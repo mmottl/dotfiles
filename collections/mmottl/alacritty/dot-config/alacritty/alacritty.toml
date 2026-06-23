@@ -2,10 +2,6 @@
 # Import theme, has to come before the rest
 import = ["~/.config/alacritty/themes/campbell.toml"]
 
-# [shell]
-# program = "/opt/homebrew/bin/zsh"
-# args = ["-l", "-c", "tmux attach || tmux"]
-
 [env]
 TERM = "xterm-256color"
 
