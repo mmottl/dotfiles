@@ -7,7 +7,9 @@
 #   ───────────────────────── Restore .zshenv PATH ─────────────────────────
 
 # Necessary on macOS due to Apple path_helper path manipulation
-if [[ $PATH != "$ORIGINAL_PATH" ]]; then
+if [[ -n ${ORIGINAL_PATH-} && $PATH != "$ORIGINAL_PATH" ]]; then
   PATH=$ORIGINAL_PATH:$PATH
-  unset ORIGINAL_PATH
+  typeset -U path
 fi
+
+unset ORIGINAL_PATH
