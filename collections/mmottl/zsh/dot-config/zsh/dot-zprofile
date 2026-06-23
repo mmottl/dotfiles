@@ -4,6 +4,14 @@
 #          │                         ZPROFILE                         │
 #          ╰──────────────────────────────────────────────────────────╯
 
+#   ────────────────────── Platform-specific Sources ────────────────────
+
 if [[ -f "$__zsh_config_dir/zprofile_$ZSH_UNAME" ]]; then
   source "$__zsh_config_dir/zprofile_$ZSH_UNAME"
+fi
+
+#   ──────────────────────────────── LaTeX ──────────────────────────────
+
+if [[ -n "${TEXMFCACHE:-}" && ! -d "${TEXMFCACHE:-}" ]]; then
+  mkdir -p "${TEXMFCACHE:-}"
 fi

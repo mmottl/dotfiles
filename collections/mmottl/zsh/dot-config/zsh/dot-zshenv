@@ -12,6 +12,9 @@ if [[ -z ${ZSH_UNAME} ]]; then
   export ZSH_UNAME
 fi
 
+# Keep path-like arrays unique while preserving first occurrence
+typeset -U path fpath manpath
+
 if [[ -f "$__zsh_config_dir/zshenv_$ZSH_UNAME" ]]; then
   source "$__zsh_config_dir/zshenv_$ZSH_UNAME"
 fi
@@ -20,7 +23,6 @@ fi
 
 export EDITOR=nvim
 export LANG=en_US.UTF-8
-export COLORFGBG="7;0"
 
 #   ──────────────────────────── Personal Paths ────────────────────────────
 
@@ -32,34 +34,12 @@ if [[ -d "$HOME/.local/bin" ]]; then
   path=($HOME/.local/bin $path)
 fi
 
-#   ───────────────────────────────── Tmux ─────────────────────────────────
-
-export TMUX_PLUGIN_MANAGER_PATH="$XDG_DATA_HOME/tmux/plugins"
-if [[ ! -d "$TMUX_PLUGIN_MANAGER_PATH" ]]; then
-  mkdir -p -- "TMUX_PLUGIN_MANAGER_PATH"
-fi
-
-#   ────────────────────────────── Dircolors ────────────────────────────
-
-if (( $+commands[dircolors] )); then
-  eval "$(dircolors)"
-  combined_colors="$LS_COLORS"
-  for file in "$HOME"/.dircolors*(N); do
-    if [[ -f $file ]]; then
-      eval "$(dircolors --sh "$file")"
-      combined_colors+=":$LS_COLORS"
-    fi
-  done
-  export LS_COLORS="${combined_colors%:}"
-  unset combined_colors file
-fi
-
 #   ─────────────────────────── C-Include Paths ─────────────────────────
 
 # Prevent pkg-config from omitting paths in C_INCLUDE_PATH
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 
-if (( $+commands[pkg-config] )); then
+if (($+commands[pkg-config])); then
   if pkg-config --exists libpcre2-8; then
     C_INCLUDE_PATH="$(pkg-config --variable=includedir libpcre2-8):$C_INCLUDE_PATH"
   fi
@@ -68,7 +48,7 @@ if (( $+commands[pkg-config] )); then
   fi
 fi
 
-if (( $+commands[ocamlc] )); then
+if (($+commands[ocamlc])); then
   C_INCLUDE_PATH="$(ocamlc -where):$C_INCLUDE_PATH"
 fi
 
@@ -82,7 +62,7 @@ if [[ -f "$CARGO_HOME/env" ]]; then
   source "$CARGO_HOME/env"
 fi
 
- export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 #   ──────────────────────────────── OCaml ──────────────────────────────
 
@@ -131,10 +111,6 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
 export TEXMFVAR="$XDG_CACHE_HOME/texmf-var"
 export TEXMFCACHE="$TEXMFVAR/luatex-cache"
-
-if [[ ! -d "$TEXMFCACHE" ]]; then
-    mkdir -p "$TEXMFCACHE"
-fi
 
 #   ──────────────────────────────── Docker ────────────────────────────────
 

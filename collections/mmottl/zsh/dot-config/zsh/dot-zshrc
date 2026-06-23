@@ -62,6 +62,13 @@ setopt EXTENDED_GLOB
 setopt NOTIFY
 setopt NO_CLOBBER
 
+#   ───────────────────────────────── Tmux ─────────────────────────────────
+
+export TMUX_PLUGIN_MANAGER_PATH="$XDG_DATA_HOME/tmux/plugins"
+if [[ ! -d "$TMUX_PLUGIN_MANAGER_PATH" ]]; then
+  mkdir -p -- "$TMUX_PLUGIN_MANAGER_PATH"
+fi
+
 #   ───────────────────────────────── GPG ───────────────────────────────
 
 GPG_TTY=$(tty)
@@ -69,6 +76,23 @@ if [[ -n "$GPG_TTY" ]]; then
     export GPG_TTY
 else
     echo "No TTY available for GPG_TTY" >&2
+fi
+
+#   ────────────────────────────── Dircolors ────────────────────────────
+
+export COLORFGBG="7;0"
+
+if (($+commands[dircolors])); then
+  eval "$(dircolors)"
+  combined_colors="$LS_COLORS"
+  for file in "$HOME"/.dircolors*(N); do
+    if [[ -f $file ]]; then
+      eval "$(dircolors --sh "$file")"
+      combined_colors+=":$LS_COLORS"
+    fi
+  done
+  export LS_COLORS="${combined_colors%:}"
+  unset combined_colors file
 fi
 
 #   ────────────────── Directory Listing and Colorization ──────────────────
