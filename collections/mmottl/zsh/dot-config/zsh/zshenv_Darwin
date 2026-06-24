@@ -31,35 +31,6 @@ path_append() {
 path_append MANPATH "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/\
 usr/share/man"
 
-#   ─────────────────────────────── Homebrew ───────────────────────────────
-
-if [[ -x "/opt/homebrew/bin/brew" ]]; then
-  if [[ ${ENABLE_HOMEBREW_SHELLENV:-0} == 1 ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
-  else
-    path_append PATH "/opt/homebrew/bin"
-    path_append PATH "/opt/homebrew/sbin"
-  fi
-fi
-
-# DYLD_LIBRARY_PATH is intentionally ignored by Bazelisk/Bazel for security
-# Use specific library paths in build configs instead
-# export DYLD_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_LIBRARY_PATH
-
-path_append PATH "/opt/homebrew/opt/postgresql@15/bin"
-path_append PATH "/opt/homebrew/opt/util-linux/bin"
-
-# Homebrew manpath settings
-path_append MANPATH "/opt/homebrew/opt/coreutils/libexec/gnuman"
-path_append MANPATH "/opt/homebrew/opt/util-linux/include"
-
-if [[ ${ENABLE_HOMEBREW_BUILD_ENV:-0} == 1 ]]; then
-  path_append PKG_CONFIG_PATH "/opt/homebrew/opt/sqlite/lib/pkgconfig"
-  path_append PKG_CONFIG_PATH "/opt/homebrew/opt/libpq/lib/pkgconfig"
-fi
-
-typeset -U path
-
 #   ─────────────────────────────── OrbStack ───────────────────────────────
 
 if [[ -f "$HOME/.orbstack/shell/init.zsh" ]]; then
