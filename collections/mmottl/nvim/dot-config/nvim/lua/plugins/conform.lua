@@ -5,6 +5,7 @@ return {
       bzl = { "buildifier" },
       java = { "google-java-format" },
       markdown = { "dprint" },
+      nix = { "alejandra" },
       rust = { "rustfmt" },
       toml = { "taplo" },
       xml = { "prettier" },
